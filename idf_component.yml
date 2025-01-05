@@ -34,11 +34,12 @@ tags:
   - lr1120
   - lr1121
   - lr2021
-url: "https://github.com/jgromes/RadioLib"
-repository: "https://github.com/jgromes/RadioLib.git"
+url: "https://github.com/x42en/RadioLib"
+repository: "https://github.com/x42en/RadioLib.git"
 license: "MIT"
 dependencies:
   # Required IDF version
   idf: ">=4.1"
 maintainers:
   - Jan Gromeš <gromes.jan@gmail.com>
+  - 0x42en <0x42en@gmail.com>
