@@ -167,12 +167,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2fa0384a529746811e2dcb2eeb4188ec" id="r_a2fa0384a529746811e2dcb2eeb4188ec"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#a2fa0384a529746811e2dcb2eeb4188ec">standby</a> (uint8_t mode, bool wakeup=true)</td></tr>
 <tr class="memdesc:a2fa0384a529746811e2dcb2eeb4188ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the module to standby mode.  <br /></td></tr>
 <tr class="separator:a2fa0384a529746811e2dcb2eeb4188ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0da667fe702d7b4aafaa4bf7e69ea40d" id="r_a0da667fe702d7b4aafaa4bf7e69ea40d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#a0da667fe702d7b4aafaa4bf7e69ea40d">setDio1Action</a> (void(*func)(void))</td></tr>
+<tr class="memitem:a0da667fe702d7b4aafaa4bf7e69ea40d" id="r_a0da667fe702d7b4aafaa4bf7e69ea40d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#a0da667fe702d7b4aafaa4bf7e69ea40d">setDio1Action</a> (void(*func)(void))</td></tr>
 <tr class="memdesc:a0da667fe702d7b4aafaa4bf7e69ea40d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets interrupt service routine to call when DIO1 activates.  <br /></td></tr>
 <tr class="separator:a0da667fe702d7b4aafaa4bf7e69ea40d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6848afe4c16a47edb3e0b342a86ecdfd" id="r_a6848afe4c16a47edb3e0b342a86ecdfd"><td class="memItemLeft" align="right" valign="top"><a id="a6848afe4c16a47edb3e0b342a86ecdfd" name="a6848afe4c16a47edb3e0b342a86ecdfd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>clearDio1Action</b> ()</td></tr>
-<tr class="memdesc:a6848afe4c16a47edb3e0b342a86ecdfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears interrupt service routine to call when DIO1 activates. <br /></td></tr>
+<tr class="memitem:a6848afe4c16a47edb3e0b342a86ecdfd" id="r_a6848afe4c16a47edb3e0b342a86ecdfd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#a6848afe4c16a47edb3e0b342a86ecdfd">clearDio1Action</a> ()</td></tr>
+<tr class="memdesc:a6848afe4c16a47edb3e0b342a86ecdfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears interrupt service routine to call when DIO1 activates.  <br /></td></tr>
 <tr class="separator:a6848afe4c16a47edb3e0b342a86ecdfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7603aa60ae8d975eb262a4b7e2aed1d0" id="r_a7603aa60ae8d975eb262a4b7e2aed1d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#a7603aa60ae8d975eb262a4b7e2aed1d0">setPacketReceivedAction</a> (void(*func)(void)) override</td></tr>
 <tr class="memdesc:a7603aa60ae8d975eb262a4b7e2aed1d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets interrupt service routine to call when a packet is received.  <br /></td></tr>
@@ -222,10 +221,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clearDio1Action</b> (
 <tr class="memitem:afdd901c5eac2ca8773d0977e2c493317" id="r_afdd901c5eac2ca8773d0977e2c493317"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#afdd901c5eac2ca8773d0977e2c493317">getChannelScanResult</a> () override</td></tr>
 <tr class="memdesc:afdd901c5eac2ca8773d0977e2c493317"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the channel scan result.  <br /></td></tr>
 <tr class="separator:afdd901c5eac2ca8773d0977e2c493317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f60df59c80241d98ce078c0417a7f08" id="r_a2f60df59c80241d98ce078c0417a7f08"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#a2f60df59c80241d98ce078c0417a7f08">setBandwidth</a> (float bw)</td></tr>
+<tr class="memitem:a2f60df59c80241d98ce078c0417a7f08" id="r_a2f60df59c80241d98ce078c0417a7f08"><td class="memItemLeft" align="right" valign="top">virtual int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#a2f60df59c80241d98ce078c0417a7f08">setBandwidth</a> (float bw)</td></tr>
 <tr class="memdesc:a2f60df59c80241d98ce078c0417a7f08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets LoRa bandwidth. Allowed values are 7.8, 10.4, 15.6, 20.8, 31.25, 41.7, 62.5, 125.0, 250.0 and 500.0 kHz.  <br /></td></tr>
 <tr class="separator:a2f60df59c80241d98ce078c0417a7f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5993359ace652fbdc862eb23fdd263d" id="r_ae5993359ace652fbdc862eb23fdd263d"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#ae5993359ace652fbdc862eb23fdd263d">setSpreadingFactor</a> (uint8_t sf)</td></tr>
+<tr class="memitem:ae5993359ace652fbdc862eb23fdd263d" id="r_ae5993359ace652fbdc862eb23fdd263d"><td class="memItemLeft" align="right" valign="top">virtual int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#ae5993359ace652fbdc862eb23fdd263d">setSpreadingFactor</a> (uint8_t sf)</td></tr>
 <tr class="memdesc:ae5993359ace652fbdc862eb23fdd263d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets LoRa spreading factor. Allowed values range from 5 to 12.  <br /></td></tr>
 <tr class="separator:ae5993359ace652fbdc862eb23fdd263d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd3113858966e878e9c67a1e710bd586" id="r_afd3113858966e878e9c67a1e710bd586"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_x126x.html#afd3113858966e878e9c67a1e710bd586">setCodingRate</a> (uint8_t cr)</td></tr>
@@ -905,6 +904,35 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>standbyXOSC</b></td><
 <p>Clears interrupt service routine to call when a channel scan is finished. </p>
 
 <p>Reimplemented from <a class="el" href="class_physical_layer.html#a169a4d04c5c50d3336e274d70930d9f6">PhysicalLayer</a>.</p>
+
+</div>
+</div>
+<a id="a6848afe4c16a47edb3e0b342a86ecdfd" name="a6848afe4c16a47edb3e0b342a86ecdfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6848afe4c16a47edb3e0b342a86ecdfd">&#9670;&#160;</a></span>clearDio1Action()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SX126x::clearDio1Action </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Clears interrupt service routine to call when DIO1 activates. </p>
+
+<p>Reimplemented in <a class="el" href="class_s_t_m32_w_lx.html#a4b6cb18e61fb1de49d989748216d3512">STM32WLx</a>.</p>
 
 </div>
 </div>
@@ -1934,6 +1962,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>standbyXOSC</b></td><
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">int16_t SX126x::setBandwidth </td>
@@ -1943,6 +1974,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>standbyXOSC</b></td><
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets LoRa bandwidth. Allowed values are 7.8, 10.4, 15.6, 20.8, 31.25, 41.7, 62.5, 125.0, 250.0 and 500.0 kHz. </p>
@@ -1953,6 +1989,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>standbyXOSC</b></td><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__status__codes.html">Status Codes</a> </dd></dl>
+
+<p>Reimplemented in <a class="el" href="class_l_l_c_c68.html#ae1badfd85c9f1c79bd6868c0528a5f17">LLCC68</a>.</p>
 
 </div>
 </div>
@@ -2241,6 +2279,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>standbyXOSC</b></td><
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void SX126x::setDio1Action </td>
@@ -2250,6 +2291,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>standbyXOSC</b></td><
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets interrupt service routine to call when DIO1 activates. </p>
@@ -2259,6 +2305,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>standbyXOSC</b></td><
   </table>
   </dd>
 </dl>
+
+<p>Reimplemented in <a class="el" href="class_s_t_m32_w_lx.html#ad96d18fea2a7fffa959b64c8c5d993a8">STM32WLx</a>.</p>
 
 </div>
 </div>
@@ -2904,6 +2952,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>standbyXOSC</b></td><
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">int16_t SX126x::setSpreadingFactor </td>
@@ -2913,6 +2964,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>standbyXOSC</b></td><
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets LoRa spreading factor. Allowed values range from 5 to 12. </p>
@@ -2923,6 +2979,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>standbyXOSC</b></td><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__status__codes.html">Status Codes</a> </dd></dl>
+
+<p>Reimplemented in <a class="el" href="class_l_l_c_c68.html#aec65cb4a7a577c46573c9b0757dc52f4">LLCC68</a>.</p>
 
 </div>
 </div>

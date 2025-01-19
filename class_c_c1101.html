@@ -138,6 +138,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> ()</td></tr
 <tr class="memitem:af374ad0ecd820a01baef7d177a30132a" id="r_af374ad0ecd820a01baef7d177a30132a"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#af374ad0ecd820a01baef7d177a30132a">standby</a> (uint8_t mode) override</td></tr>
 <tr class="memdesc:af374ad0ecd820a01baef7d177a30132a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the module to standby.  <br /></td></tr>
 <tr class="separator:af374ad0ecd820a01baef7d177a30132a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ead6224d4378274df465f779199bc92" id="r_a0ead6224d4378274df465f779199bc92"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a0ead6224d4378274df465f779199bc92">sleep</a> () override</td></tr>
+<tr class="memdesc:a0ead6224d4378274df465f779199bc92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the module to sleep mode.  <br /></td></tr>
+<tr class="separator:a0ead6224d4378274df465f779199bc92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a240eef8fa7d838d76f3c11086dc50e46" id="r_a240eef8fa7d838d76f3c11086dc50e46"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a240eef8fa7d838d76f3c11086dc50e46">transmitDirect</a> (uint32_t frf=0) override</td></tr>
 <tr class="memdesc:a240eef8fa7d838d76f3c11086dc50e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts synchronous direct mode transmission.  <br /></td></tr>
 <tr class="separator:a240eef8fa7d838d76f3c11086dc50e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -228,9 +231,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clearGdo2Action</b> (
 <tr class="memitem:a433f1a40b33be6c84d3665a1b4cd57d6" id="r_a433f1a40b33be6c84d3665a1b4cd57d6"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a433f1a40b33be6c84d3665a1b4cd57d6">setSyncWord</a> (uint8_t syncH, uint8_t syncL, uint8_t maxErrBits=0, bool requireCarrierSense=false)</td></tr>
 <tr class="memdesc:a433f1a40b33be6c84d3665a1b4cd57d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets 16-bit sync word as a two byte value.  <br /></td></tr>
 <tr class="separator:a433f1a40b33be6c84d3665a1b4cd57d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab89b0932dbacadc34d049a2bd2292001" id="r_ab89b0932dbacadc34d049a2bd2292001"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#ab89b0932dbacadc34d049a2bd2292001">setSyncWord</a> (uint8_t *syncWord, uint8_t len, uint8_t maxErrBits=0, bool requireCarrierSense=false)</td></tr>
-<tr class="memdesc:ab89b0932dbacadc34d049a2bd2292001"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets 1 or 2 bytes of sync word.  <br /></td></tr>
-<tr class="separator:ab89b0932dbacadc34d049a2bd2292001"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5345d819ea74f583e4e54f3496aa63eb" id="r_a5345d819ea74f583e4e54f3496aa63eb"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a5345d819ea74f583e4e54f3496aa63eb">setSyncWord</a> (const uint8_t *syncWord, uint8_t len, uint8_t maxErrBits=0, bool requireCarrierSense=false)</td></tr>
+<tr class="memdesc:a5345d819ea74f583e4e54f3496aa63eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets 1 or 2 bytes of sync word.  <br /></td></tr>
+<tr class="separator:a5345d819ea74f583e4e54f3496aa63eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae77c828c9c7cc12012fe011e8c4d3570" id="r_ae77c828c9c7cc12012fe011e8c4d3570"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#ae77c828c9c7cc12012fe011e8c4d3570">setPreambleLength</a> (uint8_t preambleLength, uint8_t qualityThreshold)</td></tr>
 <tr class="memdesc:ae77c828c9c7cc12012fe011e8c4d3570"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets preamble length.  <br /></td></tr>
 <tr class="separator:ae77c828c9c7cc12012fe011e8c4d3570"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -325,9 +328,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clearGdo2Action</b> (
 <tr class="memitem:a492b2d057dd803c3884fa1adc8e22534 inherit pub_methods_class_physical_layer" id="r_a492b2d057dd803c3884fa1adc8e22534"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_physical_layer.html#a492b2d057dd803c3884fa1adc8e22534">transmit</a> (const char *str, uint8_t addr=0)</td></tr>
 <tr class="memdesc:a492b2d057dd803c3884fa1adc8e22534 inherit pub_methods_class_physical_layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">C-string transmit method.  <br /></td></tr>
 <tr class="separator:a492b2d057dd803c3884fa1adc8e22534 inherit pub_methods_class_physical_layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1bb9a5da26da8829795ebb72e9c666e inherit pub_methods_class_physical_layer" id="r_af1bb9a5da26da8829795ebb72e9c666e"><td class="memItemLeft" align="right" valign="top">virtual int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_physical_layer.html#af1bb9a5da26da8829795ebb72e9c666e">sleep</a> ()</td></tr>
-<tr class="memdesc:af1bb9a5da26da8829795ebb72e9c666e inherit pub_methods_class_physical_layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets module to sleep.  <br /></td></tr>
-<tr class="separator:af1bb9a5da26da8829795ebb72e9c666e inherit pub_methods_class_physical_layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a923654706eff5118ef6e84214e837f27 inherit pub_methods_class_physical_layer" id="r_a923654706eff5118ef6e84214e837f27"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_physical_layer.html#a923654706eff5118ef6e84214e837f27">startTransmit</a> (const char *str, uint8_t addr=0)</td></tr>
 <tr class="memdesc:a923654706eff5118ef6e84214e837f27 inherit pub_methods_class_physical_layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt-driven Arduino String transmit method. Unlike the standard transmit method, this one is non-blocking. Interrupt pin will be activated when transmission finishes.  <br /></td></tr>
 <tr class="separator:a923654706eff5118ef6e84214e837f27 inherit pub_methods_class_physical_layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2143,8 +2143,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dropSync</b> ()</td><
 
 </div>
 </div>
-<a id="ab89b0932dbacadc34d049a2bd2292001" name="ab89b0932dbacadc34d049a2bd2292001"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab89b0932dbacadc34d049a2bd2292001">&#9670;&#160;</a></span>setSyncWord() <span class="overload">[1/2]</span></h2>
+<a id="a5345d819ea74f583e4e54f3496aa63eb" name="a5345d819ea74f583e4e54f3496aa63eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5345d819ea74f583e4e54f3496aa63eb">&#9670;&#160;</a></span>setSyncWord() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2152,7 +2152,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dropSync</b> ()</td><
         <tr>
           <td class="memname">int16_t CC1101::setSyncWord </td>
           <td>(</td>
-          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramtype">const uint8_t *&#160;</td>
           <td class="paramname"><em>syncWord</em>, </td>
         </tr>
         <tr>
@@ -2244,6 +2244,36 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>dropSync</b> ()</td><
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__status__codes.html">Status Codes</a> </dd></dl>
+
+</div>
+</div>
+<a id="a0ead6224d4378274df465f779199bc92" name="a0ead6224d4378274df465f779199bc92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ead6224d4378274df465f779199bc92">&#9670;&#160;</a></span>sleep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t CC1101::sleep </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the module to sleep mode. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__status__codes.html">Status Codes</a> </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_physical_layer.html#af1bb9a5da26da8829795ebb72e9c666e">PhysicalLayer</a>.</p>
 
 </div>
 </div>
