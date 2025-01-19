@@ -12,7 +12,7 @@
 // SX128X physical layer properties
 #define RADIOLIB_SX128X_FREQUENCY_STEP_SIZE                     198.3642578
 #define RADIOLIB_SX128X_MAX_PACKET_LENGTH                       255
-#define RADIOLIB_SX128X_CRYSTAL_FREQ                            52.0
+#define RADIOLIB_SX128X_CRYSTAL_FREQ                            52.0f
 #define RADIOLIB_SX128X_DIV_EXPONENT                            18
 
 // SX128X SPI commands
@@ -890,9 +890,9 @@ class SX128x: public PhysicalLayer {
 
     // SX128x SPI command implementations
     uint8_t getStatus();
-    int16_t writeRegister(uint16_t addr, uint8_t* data, uint8_t numBytes);
+    int16_t writeRegister(uint16_t addr, const uint8_t* data, uint8_t numBytes);
     int16_t readRegister(uint16_t addr, uint8_t* data, uint8_t numBytes);
-    int16_t writeBuffer(uint8_t* data, uint8_t numBytes, uint8_t offset = 0x00);
+    int16_t writeBuffer(const uint8_t* data, uint8_t numBytes, uint8_t offset = 0x00);
     int16_t readBuffer(uint8_t* data, uint8_t numBytes, uint8_t offset = 0x00);
     int16_t setTx(uint16_t periodBaseCount = RADIOLIB_SX128X_TX_TIMEOUT_NONE, uint8_t periodBase = RADIOLIB_SX128X_PERIOD_BASE_15_625_US);
     int16_t setRx(uint16_t periodBaseCount, uint8_t periodBase = RADIOLIB_SX128X_PERIOD_BASE_15_625_US);

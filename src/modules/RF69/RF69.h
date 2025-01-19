@@ -12,7 +12,7 @@
 // RF69 physical layer properties
 #define RADIOLIB_RF69_FREQUENCY_STEP_SIZE                       61.03515625
 #define RADIOLIB_RF69_MAX_PACKET_LENGTH                         64
-#define RADIOLIB_RF69_CRYSTAL_FREQ                              32.0
+#define RADIOLIB_RF69_CRYSTAL_FREQ                              32.0f
 #define RADIOLIB_RF69_DIV_EXPONENT                              19
 
 // RF69 register map
@@ -577,7 +577,7 @@ class RF69: public PhysicalLayer {
       \brief Sets AES key.
       \param key Key to be used for AES encryption. Must be exactly 16 bytes long.
     */
-    void setAESKey(uint8_t* key);
+    void setAESKey(const uint8_t* key);
 
     /*!
       \brief Enables AES encryption.
@@ -789,7 +789,7 @@ class RF69: public PhysicalLayer {
       \param len Sync word length in bytes.
       \param maxErrBits Maximum allowed number of bit errors in received sync word. Defaults to 0.
     */
-    int16_t setSyncWord(uint8_t* syncWord, size_t len, uint8_t maxErrBits = 0);
+    int16_t setSyncWord(const uint8_t* syncWord, size_t len, uint8_t maxErrBits = 0);
 
     /*!
       \brief Sets preamble length.

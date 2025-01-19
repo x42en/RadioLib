@@ -122,7 +122,7 @@ int16_t RF69::transmit(const uint8_t* data, size_t len, uint8_t addr) {
 
 int16_t RF69::receive(uint8_t* data, size_t len) {
   // calculate timeout (500 ms + 400 full 64-byte packets at current bit rate)
-  RadioLibTime_t timeout = 500 + (1.0/(this->bitRate))*(RADIOLIB_RF69_MAX_PACKET_LENGTH*400.0);
+  RadioLibTime_t timeout = 500 + (1.0f/(this->bitRate))*(RADIOLIB_RF69_MAX_PACKET_LENGTH*400.0f);
 
   // start reception
   int16_t state = startReceive();
@@ -219,7 +219,7 @@ int16_t RF69::packetMode() {
   return(this->mod->SPIsetRegValue(RADIOLIB_RF69_REG_DATA_MODUL, RADIOLIB_RF69_PACKET_MODE, 6, 5));
 }
 
-void RF69::setAESKey(uint8_t* key) {
+void RF69::setAESKey(const uint8_t* key) {
   this->mod->SPIwriteRegisterBurst(RADIOLIB_RF69_REG_AES_KEY_1, key, 16);
 }
 
@@ -364,7 +364,7 @@ bool RF69::fifoAdd(uint8_t* data, int totalLen, int* remLen) {
 
 bool RF69::fifoGet(volatile uint8_t* data, int totalLen, volatile int* rcvLen) {
   // get pointer to the correct position in data buffer
-  uint8_t* dataPtr = (uint8_t*)&data[*rcvLen];
+  uint8_t* dataPtr = const_cast<uint8_t*>(&data[*rcvLen]);
 
   // check how much data are we still expecting
   uint8_t len = RADIOLIB_RF69_FIFO_THRESH - 1;
@@ -523,9 +523,9 @@ int16_t RF69::setOokPeakThresholdDecrement(uint8_t value) {
 
 int16_t RF69::setFrequency(float freq) {
   // check allowed frequency range
-  if(!(((freq > 290.0) && (freq < 340.0)) ||
-       ((freq > 431.0) && (freq < 510.0)) ||
-       ((freq > 862.0) && (freq < 1020.0)))) {
+  if(!(((freq > 290.0f) && (freq < 340.0f)) ||
+       ((freq > 431.0f) && (freq < 510.0f)) ||
+       ((freq > 862.0f) && (freq < 1020.0f)))) {
     return(RADIOLIB_ERR_INVALID_FREQUENCY);
   }
 
@@ -559,7 +559,7 @@ int16_t RF69::getFrequency(float *freq) {
 
 int16_t RF69::setBitRate(float br) {
   // datasheet says 1.2 kbps should be the smallest possible, but 0.512 works fine
-  RADIOLIB_CHECK_RANGE(br, 0.5, 300.0, RADIOLIB_ERR_INVALID_BIT_RATE);
+  RADIOLIB_CHECK_RANGE(br, 0.5f, 300.0f, RADIOLIB_ERR_INVALID_BIT_RATE);
 
   // check bitrate-bandwidth ratio
   if(!(br < 2000 * this->rxBandwidth)) {
@@ -592,8 +592,8 @@ int16_t RF69::setRxBandwidth(float rxBw) {
   // calculate exponent and mantissa values for receiver bandwidth
   for(int8_t e = 7; e >= 0; e--) {
     for(int8_t m = 2; m >= 0; m--) {
-      float point = (RADIOLIB_RF69_CRYSTAL_FREQ * 1000000.0)/(((4 * m) + 16) * ((uint32_t)1 << (e + (this->ookEnabled ? 3 : 2))));
-      if(fabsf(rxBw - (point / 1000.0)) <= 0.1) {
+      float point = (RADIOLIB_RF69_CRYSTAL_FREQ * 1000000.0f)/(((4 * m) + 16) * ((uint32_t)1 << (e + (this->ookEnabled ? 3 : 2))));
+      if(fabsf(rxBw - (point / 1000.0f)) <= 0.1f) {
         // set Rx bandwidth
         state = this->mod->SPIsetRegValue(RADIOLIB_RF69_REG_RX_BW, (m << 3) | e, 4, 0);
         if(state == RADIOLIB_ERR_NONE) {
@@ -610,8 +610,8 @@ int16_t RF69::setRxBandwidth(float rxBw) {
 int16_t RF69::setFrequencyDeviation(float freqDev) {
   // set frequency deviation to lowest available setting (required for digimodes)
   float newFreqDev = freqDev;
-  if(freqDev < 0.0) {
-    newFreqDev = 0.6;
+  if(freqDev < 0.0f) {
+    newFreqDev = 0.6f;
   }
 
   // check frequency deviation range
@@ -648,7 +648,7 @@ int16_t RF69::getFrequencyDeviation(float *freqDev) {
 
   // calculate frequency deviation from raw value obtained from register 
   // Fdev = Fstep * Fdev(13:0) (pag. 20 of datasheet)
-  *freqDev = (1000.0 * fdev * RADIOLIB_RF69_CRYSTAL_FREQ) / 
+  *freqDev = (1000.0f * fdev * RADIOLIB_RF69_CRYSTAL_FREQ) / 
     (uint32_t(1) << RADIOLIB_RF69_DIV_EXPONENT);
 
   return(RADIOLIB_ERR_NONE);
@@ -692,7 +692,7 @@ int16_t RF69::setOutputPower(int8_t pwr, bool highPower) {
   return(state);
 }
 
-int16_t RF69::setSyncWord(uint8_t* syncWord, size_t len, uint8_t maxErrBits) {
+int16_t RF69::setSyncWord(const uint8_t* syncWord, size_t len, uint8_t maxErrBits) {
   // check constraints
   if((maxErrBits > 7) || (len > 8)) {
     return(RADIOLIB_ERR_INVALID_SYNC_WORD);
@@ -928,9 +928,9 @@ float RF69::getRSSI() {
 }
 
 int16_t RF69::setRSSIThreshold(float dbm) {
-  RADIOLIB_CHECK_RANGE(dbm, -127.5, 0, RADIOLIB_ERR_INVALID_RSSI_THRESHOLD);
+  RADIOLIB_CHECK_RANGE(dbm, -127.5f, 0.0f, RADIOLIB_ERR_INVALID_RSSI_THRESHOLD);
 
-  return this->mod->SPIsetRegValue(RADIOLIB_RF69_REG_RSSI_THRESH, (uint8_t)(-2.0 * dbm), 7, 0);
+  return this->mod->SPIsetRegValue(RADIOLIB_RF69_REG_RSSI_THRESH, (uint8_t)(-2.0f * dbm), 7, 0);
 }
 
 void RF69::setRfSwitchPins(uint32_t rxEn, uint32_t txEn) {

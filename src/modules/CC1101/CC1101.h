@@ -9,7 +9,7 @@
 // CC1101 physical layer properties
 #define RADIOLIB_CC1101_FREQUENCY_STEP_SIZE                     396.7285156
 #define RADIOLIB_CC1101_MAX_PACKET_LENGTH                       64
-#define RADIOLIB_CC1101_CRYSTAL_FREQ                            26.0
+#define RADIOLIB_CC1101_CRYSTAL_FREQ                            26.0f
 #define RADIOLIB_CC1101_DIV_EXPONENT                            16
 
 // CC1101 SPI commands
@@ -615,6 +615,12 @@ class CC1101: public PhysicalLayer {
     int16_t standby(uint8_t mode) override;
 
     /*!
+      \brief Sets the module to sleep mode.
+      \returns \ref status_codes
+    */
+    int16_t sleep() override;
+    
+    /*!
       \brief Starts synchronous direct mode transmission.
       \param frf Raw RF frequency value. Defaults to 0, required for quick frequency shifts in RTTY.
       \returns \ref status_codes
@@ -833,7 +839,7 @@ class CC1101: public PhysicalLayer {
       \param requireCarrierSense Require carrier sense above threshold in addition to sync word.
       \returns \ref status_codes
     */
-    int16_t setSyncWord(uint8_t* syncWord, uint8_t len, uint8_t maxErrBits = 0, bool requireCarrierSense = false);
+    int16_t setSyncWord(const uint8_t* syncWord, uint8_t len, uint8_t maxErrBits = 0, bool requireCarrierSense = false);
 
     /*!
       \brief Sets preamble length.
@@ -1003,7 +1009,7 @@ class CC1101: public PhysicalLayer {
     int16_t SPIsetRegValue(uint8_t reg, uint8_t value, uint8_t msb = 7, uint8_t lsb = 0, uint8_t checkInterval = 2);
     void SPIreadRegisterBurst(uint8_t reg, uint8_t numBytes, uint8_t* inBytes);
     uint8_t SPIreadRegister(uint8_t reg);
-    void SPIwriteRegisterBurst(uint8_t reg, uint8_t* data, size_t len);
+    void SPIwriteRegisterBurst(uint8_t reg, const uint8_t* data, size_t len);
     void SPIwriteRegister(uint8_t reg, uint8_t data);
 
     void SPIsendCommand(uint8_t cmd);

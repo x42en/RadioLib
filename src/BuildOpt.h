@@ -29,7 +29,11 @@
 // set which output port should be used for debug output
 // may be Serial port (on Arduino) or file like stdout or stderr (on generic platforms)
 #if !defined(RADIOLIB_DEBUG_PORT)
-  #define RADIOLIB_DEBUG_PORT   Serial
+  #if ARDUINO >= 100
+    #define RADIOLIB_DEBUG_PORT   Serial
+  #else
+    #define RADIOLIB_DEBUG_PORT   stdout
+  #endif
 #endif
 
 /*
@@ -429,13 +433,9 @@
 
   #define RADIOLIB_NC                                 (0xFFFFFFFF)
   #define RADIOLIB_NONVOLATILE
-  #define RADIOLIB_NONVOLATILE_READ_BYTE(addr)        (*((uint8_t *)(void *)(addr)))
-  #define RADIOLIB_NONVOLATILE_READ_DWORD(addr)       (*((uint32_t *)(void *)(addr)))
+  #define RADIOLIB_NONVOLATILE_READ_BYTE(addr)        (*(reinterpret_cast<uint8_t *>(reinterpret_cast<void *>(addr))))
+  #define RADIOLIB_NONVOLATILE_READ_DWORD(addr)       (*(reinterpret_cast<uint32_t *>(reinterpret_cast<void *>(addr))))
   #define RADIOLIB_TYPE_ALIAS(type, alias)            using alias = type;
-
-  #if !defined(RADIOLIB_DEBUG_PORT)
-    #define RADIOLIB_DEBUG_PORT                       stdout
-  #endif
 
   #define DEC 10
   #define HEX 16
@@ -509,11 +509,13 @@
 
 #if RADIOLIB_DEBUG_PROTOCOL
   #define RADIOLIB_DEBUG_PROTOCOL_PRINT(...) RADIOLIB_DEBUG_PRINT_LVL("RLB_PRO: ", __VA_ARGS__)
+  #define RADIOLIB_DEBUG_PROTOCOL_PRINT_NOTAG(...) RADIOLIB_DEBUG_PRINT_LVL("", __VA_ARGS__)
   #define RADIOLIB_DEBUG_PROTOCOL_PRINTLN(...) RADIOLIB_DEBUG_PRINTLN_LVL("RLB_PRO: ", __VA_ARGS__)
   #define RADIOLIB_DEBUG_PROTOCOL_PRINT_FLOAT(...) RADIOLIB_DEBUG_PRINT_FLOAT("RLB_PRO: ", __VA_ARGS__);
   #define RADIOLIB_DEBUG_PROTOCOL_HEXDUMP(...) RADIOLIB_DEBUG_HEXDUMP("RLB_PRO: ", __VA_ARGS__);
 #else
   #define RADIOLIB_DEBUG_PROTOCOL_PRINT(...) {}
+  #define RADIOLIB_DEBUG_PROTOCOL_PRINT_NOTAG(...) {}
   #define RADIOLIB_DEBUG_PROTOCOL_PRINTLN(...) {}
   #define RADIOLIB_DEBUG_PROTOCOL_PRINT_FLOAT(...) {}
   #define RADIOLIB_DEBUG_PROTOCOL_HEXDUMP(...) {}
