@@ -387,7 +387,7 @@ public:
 #if CONFIG_IDF_TARGET_ESP32S2 || CONFIG_IDF_TARGET_ESP32
             this->spi->data_buf[i] = 0x00000000;
 #else
-            this->spi->data_buf[i].val = 0x00000000;
+            this->spi->data_buf[i] = 0x00000000;
 #endif
         }
 
@@ -429,7 +429,7 @@ public:
 #if CONFIG_IDF_TARGET_ESP32S2 || CONFIG_IDF_TARGET_ESP32
         this->spi->data_buf[0] = b;
 #else
-        this->spi->data_buf[0].val = b;
+        this->spi->data_buf[0] = b;
 #endif
         this->spi->cmd.usr = 1;
         while (this->spi->cmd.usr)
@@ -437,7 +437,7 @@ public:
 #if CONFIG_IDF_TARGET_ESP32S2 || CONFIG_IDF_TARGET_ESP32
         return (this->spi->data_buf[0] & 0xFF);
 #else
-        return (this->spi->data_buf[0].val & 0xFF);
+        return (this->spi->data_buf[0] & 0xFF);
 #endif
     }
 
