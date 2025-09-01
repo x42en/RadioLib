@@ -443,7 +443,22 @@
 #define RADIOLIB_LR11X0_GFSK_WHITENING_ENABLED                  (0x01UL << 0)   //  7     0                enabled
 
 // RADIOLIB_LR11X0_CMD_SET_TX_PARAMS
-#define RADIOLIB_LR11X0_PA_RAMP_48U                             (0x02UL << 0)   //  7     0     PA ramp time: 48 us
+#define RADIOLIB_LR11X0_PA_RAMP_16U                             (0x00UL << 0)   //  7     0     PA ramp time: 16 us
+#define RADIOLIB_LR11X0_PA_RAMP_32U                             (0x01UL << 0)   //  7     0                   32 us
+#define RADIOLIB_LR11X0_PA_RAMP_48U                             (0x02UL << 0)   //  7     0                   48 us
+#define RADIOLIB_LR11X0_PA_RAMP_64U                             (0x03UL << 0)   //  7     0                   64 us
+#define RADIOLIB_LR11X0_PA_RAMP_80U                             (0x04UL << 0)   //  7     0                   80 us
+#define RADIOLIB_LR11X0_PA_RAMP_96U                             (0x05UL << 0)   //  7     0                   96 us
+#define RADIOLIB_LR11X0_PA_RAMP_112U                            (0x06UL << 0)   //  7     0                   112 us
+#define RADIOLIB_LR11X0_PA_RAMP_128U                            (0x07UL << 0)   //  7     0                   128 us
+#define RADIOLIB_LR11X0_PA_RAMP_144U                            (0x08UL << 0)   //  7     0                   144 us
+#define RADIOLIB_LR11X0_PA_RAMP_160U                            (0x09UL << 0)   //  7     0                   160 us
+#define RADIOLIB_LR11X0_PA_RAMP_176U                            (0x0AUL << 0)   //  7     0                   176 us
+#define RADIOLIB_LR11X0_PA_RAMP_192U                            (0x0BUL << 0)   //  7     0                   192 us
+#define RADIOLIB_LR11X0_PA_RAMP_208U                            (0x0CUL << 0)   //  7     0                   208 us
+#define RADIOLIB_LR11X0_PA_RAMP_240U                            (0x0DUL << 0)   //  7     0                   240 us
+#define RADIOLIB_LR11X0_PA_RAMP_272U                            (0x0EUL << 0)   //  7     0                   272 us
+#define RADIOLIB_LR11X0_PA_RAMP_304U                            (0x0FUL << 0)   //  7     0                   304 us
 
 // RADIOLIB_LR11X0_CMD_SET_RX_TX_FALLBACK_MODE
 #define RADIOLIB_LR11X0_FALLBACK_MODE_STBY_RC                   (0x01UL << 0)   //  1     0     fallback mode after Rx/Tx: standby with RC
@@ -877,6 +892,7 @@ class LR11x0: public PhysicalLayer {
     using PhysicalLayer::transmit;
     using PhysicalLayer::receive;
     using PhysicalLayer::startTransmit;
+    using PhysicalLayer::startReceive;
     using PhysicalLayer::readData;
 
     /*!
@@ -1074,16 +1090,6 @@ class LR11x0: public PhysicalLayer {
     void clearPacketSentAction() override;
 
     /*!
-      \brief Interrupt-driven binary transmit method.
-      Overloads for string-based transmissions are implemented in PhysicalLayer.
-      \param data Binary data to be sent.
-      \param len Number of bytes to send.
-      \param addr Address to send the data to. Will only be added if address filtering was enabled.
-      \returns \ref status_codes
-    */
-    int16_t startTransmit(const uint8_t* data, size_t len, uint8_t addr = 0) override;
-
-    /*!
       \brief Clean up after transmission is done.
       \returns \ref status_codes
     */
@@ -1096,20 +1102,6 @@ class LR11x0: public PhysicalLayer {
       \returns \ref status_codes
     */
     int16_t startReceive() override;
-
-    /*!
-      \brief Interrupt-driven receive method. IRQ1 will be activated when full packet is received.
-      \param timeout Raw timeout value, expressed as multiples of 1/32.768 kHz (approximately 30.52 us).
-      Defaults to RADIOLIB_LR11X0_RX_TIMEOUT_INF for infinite timeout (Rx continuous mode),
-      set to RADIOLIB_LR11X0_RX_TIMEOUT_NONE for no timeout (Rx single mode).
-      If timeout other than infinite is set, signal will be generated on IRQ1.
-
-      \param irqFlags Sets the IRQ flags that will trigger IRQ1, defaults to RADIOLIB_LR11X0_IRQ_RX_DONE.
-      \param irqMask Only for PhysicalLayer compatibility, not used.
-      \param len Only for PhysicalLayer compatibility, not used.
-      \returns \ref status_codes
-    */
-    int16_t startReceive(uint32_t timeout, uint32_t irqFlags = RADIOLIB_LR11X0_IRQ_RX_DONE, uint32_t irqMask = 0, size_t len = 0);
 
     /*!
       \brief Reads the current IRQ status.
@@ -1357,6 +1349,7 @@ class LR11x0: public PhysicalLayer {
     /*!
       \brief Query modem for the packet length of received payload.
       \param update Update received packet length. Will return cached value when set to false.
+      \param offset Pointer to a variable that will hold the receive packet's offset in the RX buffer
       \returns Length of last received packet in bytes.
     */
     size_t getPacketLength(bool update, uint8_t* offset);
@@ -1622,15 +1615,29 @@ class LR11x0: public PhysicalLayer {
     */
     int16_t calibrateImageRejection(float freqMin, float freqMax);
     
+    /*! \copydoc PhysicalLayer::stageMode */
+    int16_t stageMode(RadioModeType_t mode, RadioModeConfig_t* cfg) override;
+
+    /*! \copydoc PhysicalLayer::launchMode */
+    int16_t launchMode() override;
+    
 #if !RADIOLIB_GODMODE && !RADIOLIB_LOW_LEVEL
   protected:
 #endif
     Module* getMod() override;
 
+    // LR11x0 command helpers
+    /*!
+      \brief Round up a PA power ramp time to register value
+      \param rampTimeUs Ramp time in microseconds
+      \returns Register value of rounded ramp time
+    */
+    uint8_t roundRampTime(uint32_t rampTimeUs);
+
     // LR11x0 SPI command implementations
     int16_t writeRegMem32(uint32_t addr, const uint32_t* data, size_t len);
     int16_t readRegMem32(uint32_t addr, uint32_t* data, size_t len);
-    int16_t writeBuffer8(uint8_t* data, size_t len);
+    int16_t writeBuffer8(const uint8_t* data, size_t len);
     int16_t readBuffer8(uint8_t* data, size_t len, size_t offset);
     int16_t clearRxBuffer(void);
     int16_t writeRegMemMask32(uint32_t addr, uint32_t mask, uint32_t data);
@@ -1829,6 +1836,7 @@ class LR11x0: public PhysicalLayer {
 
     uint8_t wifiScanMode = 0;
     bool gnss = false;
+    uint32_t rxTimeout = 0;
 
     int16_t modSetup(float tcxoVoltage, uint8_t modem);
     static int16_t SPIparseStatus(uint8_t in);

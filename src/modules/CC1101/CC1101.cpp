@@ -2,7 +2,9 @@
 #include <math.h>
 #if !RADIOLIB_EXCLUDE_CC1101
 
-CC1101::CC1101(Module* module) : PhysicalLayer(RADIOLIB_CC1101_FREQUENCY_STEP_SIZE, RADIOLIB_CC1101_MAX_PACKET_LENGTH) {
+CC1101::CC1101(Module* module) : PhysicalLayer() {
+  this->freqStep = RADIOLIB_CC1101_FREQUENCY_STEP_SIZE;
+  this->maxPacketLength = RADIOLIB_CC1101_MAX_PACKET_LENGTH;
   this->mod = module;
 }
 
@@ -236,23 +238,50 @@ int16_t CC1101::startTransmit(const uint8_t* data, size_t len, uint8_t addr) {
   // flush Tx FIFO
   SPIsendCommand(RADIOLIB_CC1101_CMD_FLUSH_TX);
 
-  // set GDO0 mapping
-  int16_t state = SPIsetRegValue(RADIOLIB_CC1101_REG_IOCFG2, RADIOLIB_CC1101_GDOX_SYNC_WORD_SENT_OR_PKT_RECEIVED, 5, 0);
-  RADIOLIB_ASSERT(state);
+  // Turn on freq oscilator
+  SPIsendCommand(RADIOLIB_CC1101_CMD_FSTXON);
+
+  // Check MARCSTATE and wait until ready to tx
+  // 724us is the longest time for calibrate per datasheet
+  // Needs a bit more time for reliability
+  RadioLibTime_t start = this->mod->hal->micros();
+  while(SPIgetRegValue(RADIOLIB_CC1101_REG_MARCSTATE, 4, 0) != 0x12) {
+    if(this->mod->hal->micros() - start > 800) {
+      standby();
+      return(RADIOLIB_ERR_TX_TIMEOUT);
+    }
+  }
+
+  // set GDO0 mapping only if we aren't refilling the FIFO
+  int16_t state = RADIOLIB_ERR_NONE;
+  if(len <= RADIOLIB_CC1101_FIFO_SIZE) {
+    state = SPIsetRegValue(RADIOLIB_CC1101_REG_IOCFG2, RADIOLIB_CC1101_GDOX_SYNC_WORD_SENT_OR_PKT_RECEIVED, 5, 0);
+    RADIOLIB_ASSERT(state);
+  }
+
+  // data put on FIFO
+  uint8_t dataSent = 0;
+  uint8_t filter = SPIgetRegValue(RADIOLIB_CC1101_REG_PKTCTRL1, 1, 0);
 
   // optionally write packet length
   if(this->packetLengthConfig == RADIOLIB_CC1101_LENGTH_CONFIG_VARIABLE) {
-    SPIwriteRegister(RADIOLIB_CC1101_REG_FIFO, len);
+    if (len > RADIOLIB_CC1101_MAX_PACKET_LENGTH - 1) {
+        return(RADIOLIB_ERR_PACKET_TOO_LONG);
+    }
+    SPIwriteRegister(RADIOLIB_CC1101_REG_FIFO, len + (filter != RADIOLIB_CC1101_ADR_CHK_NONE? 1:0));
+    dataSent+= 1;
   }
 
   // check address filtering
-  uint8_t filter = SPIgetRegValue(RADIOLIB_CC1101_REG_PKTCTRL1, 1, 0);
   if(filter != RADIOLIB_CC1101_ADR_CHK_NONE) {
     SPIwriteRegister(RADIOLIB_CC1101_REG_FIFO, addr);
+    dataSent += 1;
   }
 
   // fill the FIFO
-  SPIwriteRegisterBurst(RADIOLIB_CC1101_REG_FIFO, const_cast<uint8_t*>(data), len);
+  uint8_t initialWrite = RADIOLIB_MIN((uint8_t)len, (uint8_t)(RADIOLIB_CC1101_FIFO_SIZE - dataSent));
+  SPIwriteRegisterBurst(RADIOLIB_CC1101_REG_FIFO, const_cast<uint8_t*>(data), initialWrite);
+  dataSent += initialWrite;
 
   // set RF switch (if present)
   this->mod->setRfSwitchState(Module::MODE_TX);
@@ -260,11 +289,40 @@ int16_t CC1101::startTransmit(const uint8_t* data, size_t len, uint8_t addr) {
   // set mode to transmit
   SPIsendCommand(RADIOLIB_CC1101_CMD_TX);
 
+  // Keep feeding the FIFO until the packet is done
+  while (dataSent < len) {
+    uint8_t fifoBytes = 0;
+    uint8_t prevFifobytes = 0;
+
+    // Check number of bytes on FIFO twice due to the CC1101 errata. Block until two reads are equal.
+    do{
+      fifoBytes = SPIgetRegValue(RADIOLIB_CC1101_REG_TXBYTES, 6, 0);
+      prevFifobytes = SPIgetRegValue(RADIOLIB_CC1101_REG_TXBYTES, 6, 0);
+    } while (fifoBytes != prevFifobytes);
+
+    //If there is room add more data to the FIFO
+    if (fifoBytes < RADIOLIB_CC1101_FIFO_SIZE) {
+        uint8_t bytesToWrite = RADIOLIB_MIN((uint8_t)(RADIOLIB_CC1101_FIFO_SIZE - fifoBytes), (uint8_t)(len - dataSent));
+        SPIwriteRegisterBurst(RADIOLIB_CC1101_REG_FIFO, const_cast<uint8_t*>(&data[dataSent]), bytesToWrite);
+        dataSent += bytesToWrite;
+    }
+  }
   return(state);
 }
 
 int16_t CC1101::finishTransmit() {
   // set mode to standby to disable transmitter/RF switch
+  
+  // Check MARCSTATE for Idle to let anything in the FIFO empty
+  // Timeout is 2x FIFO transmit time
+  RadioLibTime_t timeout = (1.0f/(this->bitRate))*(RADIOLIB_CC1101_FIFO_SIZE*2.0f);
+  RadioLibTime_t start = this->mod->hal->millis();
+  while(SPIgetRegValue(RADIOLIB_CC1101_REG_MARCSTATE, 4, 0) != 0x01) {
+    if(this->mod->hal->millis() - start > timeout) {
+      return(RADIOLIB_ERR_TX_TIMEOUT);
+    }
+  }
+  
   int16_t state = standby();
   RADIOLIB_ASSERT(state);
 
@@ -283,8 +341,14 @@ int16_t CC1101::startReceive() {
   SPIsendCommand(RADIOLIB_CC1101_CMD_FLUSH_RX);
 
   // set GDO0 mapping
-  // GDO0 is de-asserted at packet end, hence it is inverted here
-  state = SPIsetRegValue(RADIOLIB_CC1101_REG_IOCFG0, RADIOLIB_CC1101_GDO0_INV | RADIOLIB_CC1101_GDOX_SYNC_WORD_SENT_OR_PKT_RECEIVED, 6, 0);
+  // this is the only interrupt source that works reliably
+  // RADIOLIB_CC1101_GDOX_SYNC_WORD_SENT_OR_PKT_RECEIVED gets triggered by both packet received as well as packet discarded,
+  // RADIOLIB_CC1101_GDOX_PKT_RECEIVED_CRC_OK does not get triggered with CRC disabled
+  state = SPIsetRegValue(RADIOLIB_CC1101_REG_IOCFG0, RADIOLIB_CC1101_GDOX_RX_FIFO_FULL_OR_PKT_END, 6, 0);
+  RADIOLIB_ASSERT(state);
+
+  // set Rx FIFO threshold to the maximum Rx size
+  state = SPIsetRegValue(RADIOLIB_CC1101_REG_FIFOTHR, RADIOLIB_CC1101_FIFO_THR_TX_1_RX_64, 3, 0);
   RADIOLIB_ASSERT(state);
 
   // set RF switch (if present)
@@ -598,6 +662,10 @@ int16_t CC1101::checkOutputPower(int8_t power, int8_t* clipped, uint8_t* raw) {
   return(RADIOLIB_ERR_INVALID_OUTPUT_POWER);
 }
 
+int16_t CC1101::setSyncWord(uint8_t* sync, size_t len) {
+  return this->setSyncWord(sync, len, 0, false);
+}
+
 int16_t CC1101::setSyncWord(const uint8_t* syncWord, uint8_t len, uint8_t maxErrBits, bool requireCarrierSense) {
   if((maxErrBits > 1) || (len != 2)) {
     return(RADIOLIB_ERR_INVALID_SYNC_WORD);
@@ -626,6 +694,9 @@ int16_t CC1101::setSyncWord(uint8_t syncH, uint8_t syncL, uint8_t maxErrBits, bo
   return(setSyncWord(syncWord, sizeof(syncWord), maxErrBits, requireCarrierSense));
 }
 
+int16_t CC1101::setPreambleLength(size_t len) {
+  return this->setPreambleLength(len, len-4);
+}
 int16_t CC1101::setPreambleLength(uint8_t preambleLength, uint8_t qualityThreshold) {
   // check allowed values
   uint8_t value;

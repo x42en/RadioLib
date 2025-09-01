@@ -8,7 +8,8 @@
 
 // CC1101 physical layer properties
 #define RADIOLIB_CC1101_FREQUENCY_STEP_SIZE                     396.7285156
-#define RADIOLIB_CC1101_MAX_PACKET_LENGTH                       64
+#define RADIOLIB_CC1101_MAX_PACKET_LENGTH                       255
+#define RADIOLIB_CC1101_FIFO_SIZE                               64
 #define RADIOLIB_CC1101_CRYSTAL_FREQ                            26.0f
 #define RADIOLIB_CC1101_DIV_EXPONENT                            16
 
@@ -182,6 +183,7 @@
 #define RADIOLIB_CC1101_RX_ATTEN_18_DB                          0b00110000  //  5     4                   18 dB
 #define RADIOLIB_CC1101_FIFO_THR_TX_61_RX_4                     0b00000000  //  3     0   TX fifo threshold: 61, RX fifo threshold: 4
 #define RADIOLIB_CC1101_FIFO_THR_TX_33_RX_32                    0b00000111  //  3     0   TX fifo threshold: 33, RX fifo threshold: 32
+#define RADIOLIB_CC1101_FIFO_THR_TX_1_RX_64                     0b00001111  //  3     0   TX fifo threshold: 1, RX fifo threshold: 64
 #define RADIOLIB_CC1101_FIFO_THRESH_TX                          33
 #define RADIOLIB_CC1101_FIFO_THRESH_RX                          32
 
@@ -701,7 +703,10 @@ class CC1101: public PhysicalLayer {
     void clearPacketSentAction() override;
 
     /*!
-      \brief Interrupt-driven binary transmit method.
+      \brief Interrupt-driven binary transmit method for packets less than 64 bytes.
+      Method blocks for packets longer than 64 bytes up to a 255 byte limit, until 
+      the last bytes are placed in the FIFO. Some limitations and issues apply; see discussion: 
+      https://github.com/jgromes/RadioLib/discussions/1138
       Overloads for string-based transmissions are implemented in PhysicalLayer.
       \param data Binary data to be sent.
       \param len Number of bytes to send.
@@ -822,6 +827,14 @@ class CC1101: public PhysicalLayer {
     int16_t checkOutputPower(int8_t power, int8_t* clipped, uint8_t* raw);
 
     /*!
+      \brief Set 1 or 2 bytes of sync word.
+      \param sync Pointer to the sync word.
+      \param len Sync word length in bytes. Maximum length depends on the module used.
+      \returns \ref status_codes
+    */
+    int16_t setSyncWord(uint8_t *sync, size_t len) override;
+
+    /*!
       \brief Sets 16-bit sync word as a two byte value.
       \param syncH MSB of the sync word.
       \param syncL LSB of the sync word.
@@ -840,6 +853,13 @@ class CC1101: public PhysicalLayer {
       \returns \ref status_codes
     */
     int16_t setSyncWord(const uint8_t* syncWord, uint8_t len, uint8_t maxErrBits = 0, bool requireCarrierSense = false);
+
+    /*!
+      \brief Sets preamble length.
+      \param len Preamble length to be set (in bits), allowed values: 16, 24, 32, 48, 64, 96, 128 and 192.
+      \returns \ref status_codes
+    */
+    int16_t setPreambleLength(size_t len) override;
 
     /*!
       \brief Sets preamble length.

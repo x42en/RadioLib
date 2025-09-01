@@ -2,7 +2,9 @@
 #include <math.h>
 #if !RADIOLIB_EXCLUDE_RF69
 
-RF69::RF69(Module* module) : PhysicalLayer(RADIOLIB_RF69_FREQUENCY_STEP_SIZE, RADIOLIB_RF69_MAX_PACKET_LENGTH)  {
+RF69::RF69(Module* module) : PhysicalLayer() {
+  this->freqStep = RADIOLIB_RF69_FREQUENCY_STEP_SIZE;
+  this->maxPacketLength = RADIOLIB_RF69_MAX_PACKET_LENGTH;
   this->mod = module;
 }
 
@@ -419,12 +421,6 @@ int16_t RF69::startTransmit(const uint8_t* data, size_t len, uint8_t addr) {
   }
   this->mod->SPIwriteRegisterBurst(RADIOLIB_RF69_REG_FIFO, const_cast<uint8_t*>(data), packetLen);
 
-  // this is a hack, but it seems than in Stream mode, Rx FIFO level is getting triggered 1 byte before it should
-  // just add a padding byte that can be dropped without consequence
-  if(len > RADIOLIB_RF69_MAX_PACKET_LENGTH) {
-    this->mod->SPIwriteRegister(RADIOLIB_RF69_REG_FIFO, '/');
-  }
-
   // enable +20 dBm operation
   if(this->power > 17) {
     state = this->mod->SPIsetRegValue(RADIOLIB_RF69_REG_OCP, RADIOLIB_RF69_OCP_OFF | 0x0F);
@@ -694,7 +690,7 @@ int16_t RF69::setOutputPower(int8_t pwr, bool highPower) {
 
 int16_t RF69::setSyncWord(const uint8_t* syncWord, size_t len, uint8_t maxErrBits) {
   // check constraints
-  if((maxErrBits > 7) || (len > 8)) {
+  if((maxErrBits > 7) || (len == 0) || (len > 8)) {
     return(RADIOLIB_ERR_INVALID_SYNC_WORD);
   }
 
@@ -705,20 +701,19 @@ int16_t RF69::setSyncWord(const uint8_t* syncWord, size_t len, uint8_t maxErrBit
     }
   }
 
+  // enable filtering
   int16_t state = enableSyncWordFiltering(maxErrBits);
   RADIOLIB_ASSERT(state);
 
+  // set the length
+  state = this->mod->SPIsetRegValue(RADIOLIB_RF69_REG_SYNC_CONFIG, (len-1)<<3, 5, 3);
+
   // set sync word register
   this->mod->SPIwriteRegisterBurst(RADIOLIB_RF69_REG_SYNC_VALUE_1, syncWord, len);
-
-  if(state == RADIOLIB_ERR_NONE) {
-    this->syncWordLength = len;
-  }
-
   return(state);
 }
 
-int16_t RF69::setPreambleLength(uint8_t preambleLen) {
+int16_t RF69::setPreambleLength(size_t preambleLen) {
   // RF69 configures preamble length in bytes
   if(preambleLen % 8 != 0) {
     return(RADIOLIB_ERR_INVALID_PREAMBLE_LENGTH);
@@ -805,7 +800,11 @@ int16_t RF69::variablePacketLengthMode(uint8_t maxLen) {
 
 int16_t RF69::enableSyncWordFiltering(uint8_t maxErrBits) {
   // enable sync word recognition
-  return(this->mod->SPIsetRegValue(RADIOLIB_RF69_REG_SYNC_CONFIG, RADIOLIB_RF69_SYNC_ON | RADIOLIB_RF69_FIFO_FILL_CONDITION_SYNC | (this->syncWordLength - 1) << 3 | maxErrBits, 7, 0));
+  int16_t state = this->mod->SPIsetRegValue(RADIOLIB_RF69_REG_SYNC_CONFIG, RADIOLIB_RF69_SYNC_ON | RADIOLIB_RF69_FIFO_FILL_CONDITION_SYNC, 7, 6);
+  RADIOLIB_ASSERT(state);
+
+  // set maximum error bits
+  return(this->mod->SPIsetRegValue(RADIOLIB_RF69_REG_SYNC_CONFIG, maxErrBits, 2, 0));
 }
 
 int16_t RF69::disableSyncWordFiltering() {

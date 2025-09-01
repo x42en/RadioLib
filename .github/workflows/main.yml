@@ -185,16 +185,17 @@ jobs:
           cd $PWD/extras/test/ci
           ./build_examples.sh ${{ matrix.id }} "${{ steps.prep.outputs.skip-pattern }}" ${{ steps.prep.outputs.options }}
       
+      - name: Extract short commit hash
+        id: short-hash
+        run: echo "::set-output name=short_sha::$(git rev-parse --short HEAD)"
+      
       - name: Parse sizes
         if: ${{ env.run-build == 'true' }}
         run:
           |
           cd $PWD/extras/test/ci
           ./parse_size.sh ${{ matrix.id }}
-      
-      - name: Extract short commit hash
-        id: short-hash
-        run: echo "::set-output name=short_sha::$(git rev-parse --short HEAD)"
+          cat size_${{ steps.short-hash.outputs.short_sha }}_${{ steps.split.outputs._0 }}-${{ steps.split.outputs._1 }}-${{ steps.split.outputs._2 }}.csv
       
       - name: Upload size report as artifact
         uses: actions/upload-artifact@v4
@@ -205,6 +206,7 @@ jobs:
   metrics:
     runs-on: ubuntu-latest
     needs: build
+    if: github.ref == 'refs/heads/master'
     steps:
       - name: Set up SSH
         run: |
@@ -255,6 +257,9 @@ jobs:
           mkdir -p ~/esp
           cd ~/esp
           git clone --recursive https://github.com/espressif/esp-idf.git
+          cd esp-idf
+          git checkout v5.4.2
+          git submodule update --init --recursive
       
       - name: Install ESP-IDF
         run: |
