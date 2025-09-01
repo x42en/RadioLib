@@ -1,6 +1,7 @@
 var class_physical_layer =
 [
-    [ "PhysicalLayer", "class_physical_layer.html#add63d7d4fa8b14df5e185813794a49d5", null ],
+    [ "PhysicalLayer", "class_physical_layer.html#afc972a84153977d6ccd9e116b6181ad4", null ],
+    [ "~PhysicalLayer", "class_physical_layer.html#a7af88f9f75c9778c29002c2b8238a239", null ],
     [ "available", "class_physical_layer.html#ab57182d32646861ef0d865e2740d6b26", null ],
     [ "calculateRxTimeout", "class_physical_layer.html#a7f8d12a90158864a8ebc471b0ec89dc9", null ],
     [ "checkDataRate", "class_physical_layer.html#a58d54eeb40fb586013ba48e15318abba", null ],
@@ -14,7 +15,6 @@ var class_physical_layer =
     [ "dropSync", "class_physical_layer.html#a429796eb2e7ea86781a2e8ca42af43f3", null ],
     [ "finishTransmit", "class_physical_layer.html#a1de26f68b939f5af79ec29cc34c7be18", null ],
     [ "getChannelScanResult", "class_physical_layer.html#a63979795a7b53557560bb95b65480906", null ],
-    [ "getFreqStep", "class_physical_layer.html#a977e5236693960bb1c79090a201e9e1c", null ],
     [ "getIrqFlags", "class_physical_layer.html#af1caeed34b2e2ff0355467507106a1a2", null ],
     [ "getIrqMapped", "class_physical_layer.html#ae602ebd46d60da8670c9f353cef695d9", null ],
     [ "getModem", "class_physical_layer.html#af061879bf694735297593c048d04a196", null ],
@@ -23,6 +23,7 @@ var class_physical_layer =
     [ "getSNR", "class_physical_layer.html#aedddaf9460941b90e43e9005035faa0f", null ],
     [ "getTimeOnAir", "class_physical_layer.html#a50e730a894f60b58034507ad7730dd3c", null ],
     [ "invertIQ", "class_physical_layer.html#a11b4c6d0bf3ae7b9ca04e9434180feab", null ],
+    [ "launchMode", "class_physical_layer.html#a5c5977bc9f54f21665b022a99e6c87cc", null ],
     [ "random", "class_physical_layer.html#acd9171bd71aa80fb86113b612c42de53", null ],
     [ "random", "class_physical_layer.html#a76113e10481743094a1cd0280692b0a9", null ],
     [ "randomByte", "class_physical_layer.html#a1a5985308904261dd431f373d47ddee4", null ],
@@ -52,16 +53,19 @@ var class_physical_layer =
     [ "setPreambleLength", "class_physical_layer.html#a85db1ff64e6c56e054f276c511194633", null ],
     [ "setSyncWord", "class_physical_layer.html#a6c71cdc1238e1368274670758431a977", null ],
     [ "sleep", "class_physical_layer.html#af1bb9a5da26da8829795ebb72e9c666e", null ],
+    [ "stageMode", "class_physical_layer.html#a06fa3b844c6028a78e29b7dff58c7c79", null ],
     [ "standby", "class_physical_layer.html#acbcaf6aefcb77a354797e66222fe5018", null ],
     [ "standby", "class_physical_layer.html#a7d5da4311092e3df6b193ff303a0c5e8", null ],
     [ "startChannelScan", "class_physical_layer.html#ae30dfbb5445bb674898fc54f5f90b2f9", null ],
     [ "startChannelScan", "class_physical_layer.html#a82a52062d9259c2c546d7bf8072b7a72", null ],
     [ "startDirect", "class_physical_layer.html#a88a10657bd2215a11a2331f937414b55", null ],
     [ "startReceive", "class_physical_layer.html#a18664ad615c5507ff1690baaca90b094", null ],
-    [ "startReceive", "class_physical_layer.html#ac88f9185b5e9fdc1d89df9797dcdd9b7", null ],
+    [ "startReceive", "class_physical_layer.html#ae93500dfbcfd39837e04c0f3eaa40d97", null ],
     [ "startTransmit", "class_physical_layer.html#a923654706eff5118ef6e84214e837f27", null ],
     [ "startTransmit", "class_physical_layer.html#af79757dbbd62e080c1bad2e608ab940c", null ],
     [ "transmit", "class_physical_layer.html#a492b2d057dd803c3884fa1adc8e22534", null ],
     [ "transmit", "class_physical_layer.html#ada508497ee2e70170da3afe078e2fe0e", null ],
-    [ "transmitDirect", "class_physical_layer.html#aa4c99ac794ee653c2061be4201724b65", null ]
+    [ "transmitDirect", "class_physical_layer.html#aa4c99ac794ee653c2061be4201724b65", null ],
+    [ "freqStep", "class_physical_layer.html#aa949616080a463a82bb6ad5075a9e16e", null ],
+    [ "maxPacketLength", "class_physical_layer.html#a1c04f8fba5eef96e59972004e8abc623", null ]
 ];
