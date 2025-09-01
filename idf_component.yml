@@ -39,7 +39,7 @@ repository: "https://github.com/x42en/RadioLib.git"
 license: "MIT"
 dependencies:
   # Required IDF version
-  idf: ">=4.1"
+  idf: ">=5.4"
 maintainers:
   - Jan Gromeš <gromes.jan@gmail.com>
   - 0x42en <0x42en@gmail.com>
