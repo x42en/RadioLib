@@ -363,7 +363,7 @@ int16_t SX128x::receive(uint8_t* data, size_t len) {
 
   // calculate timeout (1000% of expected time-on-air)
   RadioLibTime_t timeout = getTimeOnAir(len) * 10;
-  RADIOLIB_DEBUG_BASIC_PRINTLN("Timeout in %lu ms", timeout);
+  RADIOLIB_DEBUG_BASIC_PRINTLN("Timeout in %lu ms", (uint32_t)((timeout + 999) / 1000));
 
   // start reception
   uint32_t timeoutValue = (uint32_t)((float)timeout / 15.625f);
@@ -372,11 +372,11 @@ int16_t SX128x::receive(uint8_t* data, size_t len) {
 
   // wait for packet reception or timeout
   bool softTimeout = false;
-  RadioLibTime_t start = this->mod->hal->millis();
+  RadioLibTime_t start = this->mod->hal->micros();
   while(!this->mod->hal->digitalRead(this->mod->getIrq())) {
     this->mod->hal->yield();
     // safety check, the timeout should be done by the radio
-    if(this->mod->hal->millis() - start > timeout) {
+    if(this->mod->hal->micros() - start > timeout) {
       softTimeout = true;
       break;
     }
@@ -726,11 +726,24 @@ int16_t SX128x::setCodingRate(uint8_t cr, bool longInterleaving) {
 
   // LoRa/ranging
   if((modem == RADIOLIB_SX128X_PACKET_TYPE_LORA) || (modem == RADIOLIB_SX128X_PACKET_TYPE_RANGING)) {
-    RADIOLIB_CHECK_RANGE(cr, 5, 8, RADIOLIB_ERR_INVALID_CODING_RATE);
+    RADIOLIB_CHECK_RANGE(cr, 4, 8, RADIOLIB_ERR_INVALID_CODING_RATE);
 
     // update modulation parameters
     if(longInterleaving && (modem == RADIOLIB_SX128X_PACKET_TYPE_LORA)) {
-      this->codingRateLoRa = cr;
+      switch(cr) {
+        case 4:
+          this->codingRateLoRa = 0;
+          break;
+        case 5:
+        case 6:
+          this->codingRateLoRa = cr;
+          break;
+        case 8: 
+          this->codingRateLoRa = cr - 1;
+          break;
+        default:
+          return(RADIOLIB_ERR_INVALID_CODING_RATE);
+      }
     } else {
       this->codingRateLoRa = cr - 4;
     }
@@ -1284,6 +1297,20 @@ size_t SX128x::getPacketLength(bool update, uint8_t* offset) {
   if(offset) { *offset = rxBufStatus[1]; }
 
   return((size_t)rxBufStatus[0]);
+}
+
+int16_t SX128x::getLoRaRxHeaderInfo(uint8_t* cr, bool* hasCRC) {
+  int16_t state = RADIOLIB_ERR_NONE;
+
+  // check if in explicit header mode
+  if(this->headerType == RADIOLIB_SX128X_LORA_HEADER_IMPLICIT) {
+    return(RADIOLIB_ERR_WRONG_MODEM);
+  }
+
+  if(cr) { *cr = this->mod->SPIgetRegValue(RADIOLIB_SX128X_REG_LORA_RX_CODING_RATE, 6, 4) >> 4; }
+  if(hasCRC) { *hasCRC = (this->mod->SPIgetRegValue(RADIOLIB_SX128X_REG_FEI_MSB, 4, 4) != 0); }
+
+  return(state);
 }
 
 int16_t SX128x::fixedPacketLengthMode(uint8_t len) {

@@ -933,7 +933,8 @@ class LR11x0: public PhysicalLayer {
       \brief Initialization method for LoRa modem.
       \param bw LoRa bandwidth in kHz.
       \param sf LoRa spreading factor.
-      \param cr LoRa coding rate denominator.
+      \param cr LoRa coding rate denominator. Allowed values range from 4 to 8. Note that a value of 4 means no coding,
+      is undocumented and not recommended without your own FEC.
       \param syncWord 1-byte LoRa sync word.
       \param preambleLength LoRa preamble length in symbols
       \param tcxoVoltage TCXO reference voltage to be set.
@@ -1159,7 +1160,8 @@ class LR11x0: public PhysicalLayer {
     int16_t setSpreadingFactor(uint8_t sf, bool legacy = false);
 
     /*!
-      \brief Sets LoRa coding rate denominator. Allowed values range from 5 to 8.
+      \brief Sets LoRa coding rate denominator. Allowed values range from 4 to 8. Note that a value of 4 means no coding, 
+      is undocumented and not recommended without your own FEC.
       \param cr LoRa coding rate denominator to be set.
       \param longInterleave Enable long interleaver when set to true.
       Note that CR 4/7 is not possible with long interleaver enabled!
@@ -1353,6 +1355,14 @@ class LR11x0: public PhysicalLayer {
       \returns Length of last received packet in bytes.
     */
     size_t getPacketLength(bool update, uint8_t* offset);
+
+    /*!
+      \brief Get LoRa header information from last received packet. Only valid in explicit header mode.
+      \param cr Pointer to variable to store the coding rate.
+      \param hasCRC Pointer to variable to store the CRC status.
+      \returns \ref status_codes
+    */
+    int16_t getLoRaRxHeaderInfo(uint8_t* cr, bool* hasCRC);
 
     /*!
       \brief Get expected time-on-air for a given size of payload
@@ -1712,7 +1722,6 @@ class LR11x0: public PhysicalLayer {
     int16_t lrFhssBuildFrame(uint8_t hdrCount, uint8_t cr, uint8_t grid, bool hop, uint8_t bw, uint16_t hopSeq, int8_t devOffset, const uint8_t* payload, size_t len);
     int16_t lrFhssSetSyncWord(uint32_t sync);
     int16_t configBleBeacon(uint8_t chan, const uint8_t* payload, size_t len);
-    int16_t getLoRaRxHeaderInfos(uint8_t* info);
     int16_t bleBeaconSend(uint8_t chan, const uint8_t* payload, size_t len);
 
     int16_t wifiScan(uint8_t type, uint16_t mask, uint8_t acqMode, uint8_t nbMaxRes, uint8_t nbScanPerChan, uint16_t timeout, uint8_t abortOnTimeout);
