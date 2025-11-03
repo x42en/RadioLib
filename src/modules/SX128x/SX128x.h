@@ -57,6 +57,7 @@
 #define RADIOLIB_SX128X_CMD_SET_ADVANCED_RANGING                0x9A
 
 // SX128X register map
+#define RADIOLIB_SX128X_REG_VERSION_STRING                      0x01F0
 #define RADIOLIB_SX128X_REG_GAIN_MODE                           0x0891
 #define RADIOLIB_SX128X_REG_MANUAL_GAIN_CONTROL_ENABLE_2        0x0895
 #define RADIOLIB_SX128X_REG_MANUAL_GAIN_SETTING                 0x089E
@@ -253,7 +254,7 @@
 #define RADIOLIB_SX128X_LORA_CR_4_8                             0x04        //  7     0                     4/8
 #define RADIOLIB_SX128X_LORA_CR_4_5_LI                          0x05        //  7     0                     4/5, long interleaving
 #define RADIOLIB_SX128X_LORA_CR_4_6_LI                          0x06        //  7     0                     4/6, long interleaving
-#define RADIOLIB_SX128X_LORA_CR_4_7_LI                          0x07        //  7     0                     4/7, long interleaving
+#define RADIOLIB_SX128X_LORA_CR_4_8_LI                          0x07        //  7     0                     4/8, long interleaving
 
 //RADIOLIB_SX128X_CMD_SET_PACKET_PARAMS
 #define RADIOLIB_SX128X_GFSK_FLRC_SYNC_WORD_OFF                 0x00        //  7     0   GFSK/FLRC sync word used: none
@@ -435,11 +436,13 @@ class SX128x: public PhysicalLayer {
     /*!
       \brief Blocking binary receive method.
       Overloads for string-based transmissions are implemented in PhysicalLayer.
-      \param data Binary data to be sent.
-      \param len Number of bytes to send.
+      \param data Pointer to array to save the received binary data.
+      \param len Number of bytes that will be received. Must be known in advance for binary transmissions.
+      \param timeout Reception timeout in milliseconds. If set to 0,
+      timeout period will be calculated automatically based on the radio configuration.
       \returns \ref status_codes
     */
-    int16_t receive(uint8_t* data, size_t len) override;
+    int16_t receive(uint8_t* data, size_t len, RadioLibTime_t timeout = 0) override;
 
     /*!
       \brief Starts direct mode transmission.
@@ -562,6 +565,12 @@ class SX128x: public PhysicalLayer {
       \returns \ref status_codes
     */
     int16_t readData(uint8_t* data, size_t len) override;
+
+    /*!
+      \brief Clean up after reception is done.
+      \returns \ref status_codes
+    */
+    int16_t finishReceive() override;
     
     /*!
       \brief Read currently active IRQ flags.
@@ -679,7 +688,7 @@ class SX128x: public PhysicalLayer {
       \param dr Data rate struct. Interpretation depends on currently active modem (FSK or LoRa).
       \returns \ref status_codes
     */
-    int16_t setDataRate(DataRate_t dr) override;
+    int16_t setDataRate(DataRate_t dr, ModemType_t modem = RADIOLIB_MODEM_NONE) override;
 
     /*!
       \brief Sets FSK or FLRC bit rate. Allowed values are 125, 250, 400, 500, 800, 1000,
@@ -821,6 +830,16 @@ class SX128x: public PhysicalLayer {
     int16_t variablePacketLengthMode(uint8_t maxLen = RADIOLIB_SX128X_MAX_PACKET_LENGTH);
 
     /*!
+      \brief Calculate the expected time-on-air for a given modem, data rate, packet configuration and payload size.
+      \param modem Modem type.
+      \param dr Data rate.
+      \param pc Packet config.
+      \param len Payload length in bytes.
+      \returns Expected time-on-air in microseconds.
+    */
+    RadioLibTime_t calculateTimeOnAir(ModemType_t modem, DataRate_t dr, PacketConfig_t pc, size_t len) override;
+
+    /*!
       \brief Get expected time-on-air for a given size of payload.
       \param len Payload length in bytes.
       \returns Expected time-on-air in microseconds.
@@ -861,7 +880,7 @@ class SX128x: public PhysicalLayer {
 
     /*!
       \brief Enable/disable inversion of the I and Q signals
-      \param enable QI inversion enabled (true) or disabled (false);
+      \param enable IQ inversion enabled (true) or disabled (false);
       \returns \ref status_codes
     */
     int16_t invertIQ(bool enable) override;
@@ -889,7 +908,10 @@ class SX128x: public PhysicalLayer {
 #if !RADIOLIB_GODMODE && !RADIOLIB_LOW_LEVEL
   protected:
 #endif
+    const char* chipType = NULL;
+
     Module* getMod() override;
+    int16_t modSetup(uint8_t modem);
 
     // cached LoRa parameters
     float bandwidthKhz = 0;
@@ -918,6 +940,9 @@ class SX128x: public PhysicalLayer {
     int16_t setRangingRole(uint8_t role);
     int16_t setPacketType(uint8_t type);
 
+    // protected so that it can be accessed from SX1280 class during reinit after ranging is complete
+    int16_t config(uint8_t modem);
+
 #if !RADIOLIB_GODMODE
   private:
 #endif
@@ -934,7 +959,7 @@ class SX128x: public PhysicalLayer {
     uint8_t invertIQEnabled = RADIOLIB_SX128X_LORA_IQ_STANDARD;
 
     // cached GFSK parameters
-    float modIndexReal = 0;
+    float modIndexReal = 0, frequencyDev = 0;
     uint16_t bitRateKbps = 0;
     uint8_t bitRate = 0, modIndex = 0, shaping = 0;
     uint8_t preambleLengthGFSK = 0, syncWordLen = 0, syncWordMatch = 0, crcGFSK = 0, whitening = 0;
@@ -946,7 +971,7 @@ class SX128x: public PhysicalLayer {
     // cached BLE parameters
     uint8_t connectionState = 0, crcBLE = 0, bleTestPayload = 0;
 
-    int16_t config(uint8_t modem);
+    bool findChip(const char* verStr);
     int16_t setPacketMode(uint8_t mode, uint8_t len);
     int16_t setHeaderType(uint8_t hdrType, size_t len = 0xFF);
 };

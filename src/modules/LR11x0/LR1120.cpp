@@ -71,7 +71,9 @@ int16_t LR1120::setFrequency(float freq, bool skipCalibration, float band) {
   RADIOLIB_ASSERT(state);
   this->freqMHz = freq;
   this->highFreq = (freq > 1000.0f);
-  return(RADIOLIB_ERR_NONE);
+
+  // apply workaround for GFSK
+  return(workaroundGFSK());
 }
 
 int16_t LR1120::setOutputPower(int8_t power) {
@@ -144,6 +146,8 @@ int16_t LR1120::setModem(ModemType_t modem) {
     case(ModemType_t::RADIOLIB_MODEM_LRFHSS): {
       return(this->beginLRFHSS());
     } break;
+    default:
+      return(RADIOLIB_ERR_WRONG_MODEM);
   }
   return(RADIOLIB_ERR_WRONG_MODEM);
 }
