@@ -1,5 +1,7 @@
 var class_esp_hal =
 [
+    [ "EspHal", "class_esp_hal.html#a3be587e4807a75fc21cadf8ee44b75fb", null ],
+    [ "addSpiDevice", "class_esp_hal.html#a8ff4d737fcbcadc210d43aff7daf8ead", null ],
     [ "attachInterrupt", "class_esp_hal.html#a0ac4296d4bede9dd1d65e3e2fce12985", null ],
     [ "delay", "class_esp_hal.html#a3f969910c1354d0ad92a7283d4fbc477", null ],
     [ "delayMicroseconds", "class_esp_hal.html#a7e1183e95e651bcccbed041d28ecedaa", null ],

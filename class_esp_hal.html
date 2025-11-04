@@ -96,6 +96,11 @@ $(document).ready(function(){initNavTree('class_esp_hal.html',''); initResizable
   <div class="headertitle"><div class="title">EspHal Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>ESP-IDF HAL for RadioLib using spi_master driver This implementation properly handles SPI transactions and works with shared SPI buses.  
+ <a href="class_esp_hal.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_esp_hal_8h_source.html">EspHal.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for EspHal:</div>
 <div class="dyncontent">
@@ -108,9 +113,9 @@ Inheritance diagram for EspHal:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8b26da65034128eb18cf1447869ad2a3" id="r_a8b26da65034128eb18cf1447869ad2a3"><td class="memItemLeft" align="right" valign="top"><a id="a8b26da65034128eb18cf1447869ad2a3" name="a8b26da65034128eb18cf1447869ad2a3"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>EspHal</b> (int8_t sck, int8_t miso, int8_t mosi)</td></tr>
-<tr class="separator:a8b26da65034128eb18cf1447869ad2a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3be587e4807a75fc21cadf8ee44b75fb" id="r_a3be587e4807a75fc21cadf8ee44b75fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_esp_hal.html#a3be587e4807a75fc21cadf8ee44b75fb">EspHal</a> (int8_t sck, int8_t miso, int8_t mosi, spi_host_device_t host=SPI3_HOST)</td></tr>
+<tr class="memdesc:a3be587e4807a75fc21cadf8ee44b75fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
+<tr class="separator:a3be587e4807a75fc21cadf8ee44b75fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d0f76eaeb787f13fe8e938678d44616" id="r_a8d0f76eaeb787f13fe8e938678d44616"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_esp_hal.html#a8d0f76eaeb787f13fe8e938678d44616">init</a> () override</td></tr>
 <tr class="memdesc:a8d0f76eaeb787f13fe8e938678d44616"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_module.html" title="Implements all common low-level methods to control the wireless module. Every module class contains o...">Module</a> initialization method. This will be called by all radio modules at the beginning of startup. Can be used to e.g., initialize SPI interface.  <br /></td></tr>
 <tr class="separator:a8d0f76eaeb787f13fe8e938678d44616"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -165,6 +170,9 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>spiTransferByte</b
 <tr class="memitem:ae0c2bcd6d667e475bbaf9ddfc6ebaede" id="r_ae0c2bcd6d667e475bbaf9ddfc6ebaede"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_esp_hal.html#ae0c2bcd6d667e475bbaf9ddfc6ebaede">spiEnd</a> ()</td></tr>
 <tr class="memdesc:ae0c2bcd6d667e475bbaf9ddfc6ebaede"><td class="mdescLeft">&#160;</td><td class="mdescRight">SPI termination method.  <br /></td></tr>
 <tr class="separator:ae0c2bcd6d667e475bbaf9ddfc6ebaede"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ff4d737fcbcadc210d43aff7daf8ead" id="r_a8ff4d737fcbcadc210d43aff7daf8ead"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_esp_hal.html#a8ff4d737fcbcadc210d43aff7daf8ead">addSpiDevice</a> (int8_t csPin, uint32_t clockHz=500000)</td></tr>
+<tr class="memdesc:a8ff4d737fcbcadc210d43aff7daf8ead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add SPI device with CS pin Must be called after <a class="el" href="class_esp_hal.html#a8d0f76eaeb787f13fe8e938678d44616" title="Module initialization method. This will be called by all radio modules at the beginning of startup....">init()</a> and before using SPI.  <br /></td></tr>
+<tr class="separator:a8ff4d737fcbcadc210d43aff7daf8ead"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_radio_lib_hal"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_radio_lib_hal')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_radio_lib_hal.html">RadioLibHal</a></td></tr>
 <tr class="memitem:ae75a54271cb8bea37d32dd146b9c6513 inherit pub_methods_class_radio_lib_hal" id="r_ae75a54271cb8bea37d32dd146b9c6513"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_radio_lib_hal.html#ae75a54271cb8bea37d32dd146b9c6513">RadioLibHal</a> (const uint32_t input, const uint32_t output, const uint32_t low, const uint32_t high, const uint32_t rising, const uint32_t falling)</td></tr>
 <tr class="memdesc:ae75a54271cb8bea37d32dd146b9c6513 inherit pub_methods_class_radio_lib_hal"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
@@ -210,7 +218,114 @@ const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>GpioInterru
 <tr class="memdesc:a01f73b66a632fc9dba41a23f592e0936 inherit pub_attribs_class_radio_lib_hal"><td class="mdescLeft">&#160;</td><td class="mdescRight">Value to be used as the "falling" GPIO level change direction. <br /></td></tr>
 <tr class="separator:a01f73b66a632fc9dba41a23f592e0936 inherit pub_attribs_class_radio_lib_hal"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>ESP-IDF HAL for RadioLib using spi_master driver This implementation properly handles SPI transactions and works with shared SPI buses. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3be587e4807a75fc21cadf8ee44b75fb" name="a3be587e4807a75fc21cadf8ee44b75fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3be587e4807a75fc21cadf8ee44b75fb">&#9670;&#160;</a></span>EspHal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">EspHal::EspHal </td>
+          <td>(</td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>sck</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>miso</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>mosi</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">spi_host_device_t&#160;</td>
+          <td class="paramname"><em>host</em> = <code>SPI3_HOST</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sck</td><td>SPI clock pin </td></tr>
+    <tr><td class="paramname">miso</td><td>SPI MISO pin </td></tr>
+    <tr><td class="paramname">mosi</td><td>SPI MOSI pin </td></tr>
+    <tr><td class="paramname">host</td><td>SPI host to use (SPI2_HOST or SPI3_HOST) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8ff4d737fcbcadc210d43aff7daf8ead" name="a8ff4d737fcbcadc210d43aff7daf8ead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ff4d737fcbcadc210d43aff7daf8ead">&#9670;&#160;</a></span>addSpiDevice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool EspHal::addSpiDevice </td>
+          <td>(</td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>csPin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>clockHz</em> = <code>500000</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add SPI device with CS pin Must be called after <a class="el" href="class_esp_hal.html#a8d0f76eaeb787f13fe8e938678d44616" title="Module initialization method. This will be called by all radio modules at the beginning of startup....">init()</a> and before using SPI. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">csPin</td><td>Chip select pin </td></tr>
+    <tr><td class="paramname">clockHz</td><td>SPI clock frequency in Hz </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a0ac4296d4bede9dd1d65e3e2fce12985" name="a0ac4296d4bede9dd1d65e3e2fce12985"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ac4296d4bede9dd1d65e3e2fce12985">&#9670;&#160;</a></span>attachInterrupt()</h2>
 
@@ -848,7 +963,7 @@ const uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>GpioInterru
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/hal/ESP-IDF/<a class="el" href="_esp_hal_8hpp_source.html">EspHal.hpp</a></li>
+<li>src/hal/ESP-IDF/<a class="el" href="_esp_hal_8h_source.html">EspHal.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

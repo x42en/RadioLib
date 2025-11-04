@@ -74,7 +74,6 @@ var annotated_dup =
     [ "Si4432", "class_si4432.html", "class_si4432" ],
     [ "Si443x", "class_si443x.html", "class_si443x" ],
     [ "SleepConfig_t", "struct_sleep_config__t.html", "struct_sleep_config__t" ],
-    [ "spiClk_t", "unionspi_clk__t.html", null ],
     [ "SSTVClient", "class_s_s_t_v_client.html", "class_s_s_t_v_client" ],
     [ "SSTVMode_t", "struct_s_s_t_v_mode__t.html", "struct_s_s_t_v_mode__t" ],
     [ "StandbyConfig_t", "struct_standby_config__t.html", "struct_standby_config__t" ],

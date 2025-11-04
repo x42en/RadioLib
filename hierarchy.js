@@ -119,7 +119,6 @@ var hierarchy =
     [ "Module::RfSwitchMode_t", "struct_module_1_1_rf_switch_mode__t.html", null ],
     [ "RSSIScanConfig_t", "struct_r_s_s_i_scan_config__t.html", null ],
     [ "SleepConfig_t", "struct_sleep_config__t.html", null ],
-    [ "spiClk_t", "unionspi_clk__t.html", null ],
     [ "Module::SPIConfig_t", "struct_module_1_1_s_p_i_config__t.html", null ],
     [ "SSTVClient", "class_s_s_t_v_client.html", null ],
     [ "SSTVMode_t", "struct_s_s_t_v_mode__t.html", null ],
