@@ -1,16 +1,5 @@
 var NAVTREEINDEX7 =
 {
-"struct_lo_ra_w_a_n_package__t.html#a1dfa052bb8801693813911484b927198":[3,0,29,1],
-"struct_lo_ra_w_a_n_package__t.html#a9841756909b98cb2906f38be3dd630f7":[3,0,29,0],
-"struct_lo_ra_w_a_n_package__t.html#aa4070f6fcaf243912193539183dc21a2":[3,0,29,2],
-"struct_lr_fhss_packet_config__t.html":[3,0,43],
-"struct_lr_fhss_packet_config__t.html#adb05226f02820e6e0f90e2a470eda412":[3,0,43,0],
-"struct_lr_fhss_rate__t.html":[3,0,44],
-"struct_lr_fhss_rate__t.html#a29dec307a472c34e9fafb10af3c4fb9c":[3,0,44,2],
-"struct_lr_fhss_rate__t.html#a3eb7a2c2f4f23face4d6706aa8084c6b":[3,0,44,1],
-"struct_lr_fhss_rate__t.html#a965dcb7da1b9adc4818ae9e908585f21":[3,0,44,0],
-"struct_module_1_1_rf_switch_mode__t.html":[3,0,45,0],
-"struct_module_1_1_rf_switch_mode__t.html#a2442217bfabfb124a3f46bb128aa7462":[3,0,45,0,0],
 "struct_module_1_1_rf_switch_mode__t.html#a694fecae172f868d8ca400319920ed66":[3,0,45,0,1],
 "struct_module_1_1_s_p_i_config__t.html":[3,0,45,1],
 "struct_module_1_1_s_p_i_config__t.html#a1a088c02ed02361746621ffbc2526681":[3,0,45,1,5],

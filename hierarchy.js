@@ -48,7 +48,9 @@ var hierarchy =
     [ "PacketConfig_t", "union_packet_config__t.html", null ],
     [ "PagerClient", "class_pager_client.html", null ],
     [ "PhysicalLayer", "class_physical_layer.html", [
-      [ "CC1101", "class_c_c1101.html", null ],
+      [ "CC1101", "class_c_c1101.html", [
+        [ "E07_400MM", "class_e07__400_m_m.html", null ]
+      ] ],
       [ "ExternalRadio", "class_external_radio.html", null ],
       [ "LR11x0", "class_l_r11x0.html", [
         [ "LR1110", "class_l_r1110.html", null ],
@@ -99,7 +101,6 @@ var hierarchy =
     [ "RadioLibConvCode", "class_radio_lib_conv_code.html", null ],
     [ "RadioLibCRC", "class_radio_lib_c_r_c.html", null ],
     [ "RadioLibHal", "class_radio_lib_hal.html", [
-      [ "EspHal", "class_esp_hal.html", null ],
       [ "PiHal", "class_pi_hal.html", null ]
     ] ],
     [ "RadioLibPrint", "class_radio_lib_print.html", [

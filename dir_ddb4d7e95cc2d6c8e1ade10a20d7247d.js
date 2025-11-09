@@ -1,6 +1,7 @@
 var dir_ddb4d7e95cc2d6c8e1ade10a20d7247d =
 [
     [ "CC1101", "dir_e824c1032eaf58988755f8ba9735594b.html", "dir_e824c1032eaf58988755f8ba9735594b" ],
+    [ "E07400MM", "dir_ea2cffd9f82217efe63746658d3fd36b.html", "dir_ea2cffd9f82217efe63746658d3fd36b" ],
     [ "LLCC68", "dir_17a0c4358d096e2caf9f04fe2ab66c1d.html", "dir_17a0c4358d096e2caf9f04fe2ab66c1d" ],
     [ "LR11x0", "dir_0e83dcfc36797043b1d37394d4120df8.html", "dir_0e83dcfc36797043b1d37394d4120df8" ],
     [ "nRF24", "dir_8d5439df06ea2679013aa8390703d116.html", "dir_8d5439df06ea2679013aa8390703d116" ],

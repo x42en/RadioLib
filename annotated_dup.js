@@ -10,7 +10,7 @@ var annotated_dup =
     [ "CC1101", "class_c_c1101.html", "class_c_c1101" ],
     [ "ChannelScanConfig_t", "union_channel_scan_config__t.html", "union_channel_scan_config__t" ],
     [ "DataRate_t", "union_data_rate__t.html", "union_data_rate__t" ],
-    [ "EspHal", "class_esp_hal.html", "class_esp_hal" ],
+    [ "E07_400MM", "class_e07__400_m_m.html", "class_e07__400_m_m" ],
     [ "ExternalRadio", "class_external_radio.html", "class_external_radio" ],
     [ "FSK4Client", "class_f_s_k4_client.html", "class_f_s_k4_client" ],
     [ "FSKPacketConfig_t", "struct_f_s_k_packet_config__t.html", "struct_f_s_k_packet_config__t" ],

@@ -1,17 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"class_s_x127x.html#a17ff4e4e0afaebed727648e1400be538":[3,0,92,74],
-"class_s_x127x.html#a18664ad615c5507ff1690baaca90b094":[3,0,92,93],
-"class_s_x127x.html#a1921e1d9fc1d888d2e73bb732e7db7aa":[3,0,92,16],
-"class_s_x127x.html#a1d39296b40e7282ef44d8f376065e92c":[3,0,92,102],
-"class_s_x127x.html#a1ff85ee7979da08b4e66316f1ba2c6a9":[3,0,92,88],
-"class_s_x127x.html#a201c31366f32c41b801724fb662265c1":[3,0,92,67],
-"class_s_x127x.html#a22de05835dda9ed287ec48f60ef91f55":[3,0,92,30],
-"class_s_x127x.html#a24ef0af19a6b8954f956a3c3ad4286ee":[3,0,92,73],
-"class_s_x127x.html#a25b193b71ddb6015d25b0a161809d75a":[3,0,92,18],
-"class_s_x127x.html#a2cc53b9f9d90647c5709cb974779cf53":[3,0,92,85],
-"class_s_x127x.html#a2cf6a5bd8f3257f98ee4f250cbdf8bdc":[3,0,92,33],
-"class_s_x127x.html#a2ec32a52b13752d75f3076a5868c312d":[3,0,92,13],
 "class_s_x127x.html#a333a9004cc05ff8aba2e9610db31109d":[3,0,92,32],
 "class_s_x127x.html#a3530e8e19cfe4d96fe49ca4e6386b099":[3,0,92,79],
 "class_s_x127x.html#a3563453988a83d22dd07d4691543a300":[3,0,92,45],
@@ -249,5 +237,17 @@ var NAVTREEINDEX4 =
 "class_si443x.html#ae188dec3175a3aec96844a613e911500":[3,0,72,38],
 "class_si443x.html#ae608fabef91defa1e33e6a6787c68ce8":[3,0,72,17],
 "class_si443x.html#ae782ee06e2c463c24f22f5d4c3dd8d97":[3,0,72,20],
-"class_si443x.html#ae7cfff2efebfa01c8a50a5cbbe8775b9":[3,0,72,0]
+"class_si443x.html#ae7cfff2efebfa01c8a50a5cbbe8775b9":[3,0,72,0],
+"class_si443x.html#ae8e1a9a70407d80d660496baa560c5ca":[3,0,72,4],
+"class_si443x.html#af257fb09afaa6162e1506cfe87b219b3":[3,0,72,34],
+"class_si443x.html#af2d36121ca94736ef3ecb4c09aded753":[3,0,72,29],
+"class_si443x.html#af79757dbbd62e080c1bad2e608ab940c":[3,0,72,41],
+"class_si443x.html#afcba86e79d229b3fd7268dcbd7c47b62":[3,0,72,21],
+"class_stm32wlx_hal.html":[3,0,79],
+"class_stm32wlx_hal.html#a70dd9f6fb6c0307e2d9d363ce6d7f2a2":[3,0,79,2],
+"class_stm32wlx_hal.html#a7fc8af77a85f8f002c7dc6476efa0ad4":[3,0,79,0],
+"class_stm32wlx_hal.html#acb925afdee4979936ef83a422d13e642":[3,0,79,1],
+"classes.html":[3,1],
+"classn_r_f24.html":[3,0,47],
+"classn_r_f24.html#a03e9ae7fbd0d55887acf1996df28ed5b":[3,0,47,35]
 };
