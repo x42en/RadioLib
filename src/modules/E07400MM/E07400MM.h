@@ -1,5 +1,5 @@
 /**
- * @file E07_400MM.h
+ * @file E07400MM.h
  * @brief E07-400MM (CC1101 clone) driver for RadioLib
  *
  * This class extends RadioLib's CC1101 class to handle quirks specific to
@@ -40,9 +40,9 @@
 #define E07_400MM_H
 
 #include "../CC1101/CC1101.h"
-#include "../../../TypeDef.h"
+#include "../../TypeDef.h"
 
-#if defined(RADIOLIB_BUILD_ESP_IDF)
+#if defined(ESP_PLATFORM)
 #include "esp_rom_sys.h"
 #elif defined(RADIOLIB_BUILD_ARDUINO)
 #include <Arduino.h>
