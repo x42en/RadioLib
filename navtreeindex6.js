@@ -1,5 +1,6 @@
 var NAVTREEINDEX6 =
 {
+"group__status__codes.html#gaabe141287f2d6ba723658309f4464662":[2,6,29],
 "group__status__codes.html#gaad31ccea119011fd05441ed83e0f3b3d":[2,6,76],
 "group__status__codes.html#gab0f9cb8ee829a8504fc110de18c4ff67":[2,6,38],
 "group__status__codes.html#gab120f980c06c581cd071452464199aac":[2,6,8],
@@ -248,6 +249,5 @@ var NAVTREEINDEX6 =
 "struct_lr_fhss_rate__t.html#a29dec307a472c34e9fafb10af3c4fb9c":[3,0,44,2],
 "struct_lr_fhss_rate__t.html#a3eb7a2c2f4f23face4d6706aa8084c6b":[3,0,44,1],
 "struct_lr_fhss_rate__t.html#a965dcb7da1b9adc4818ae9e908585f21":[3,0,44,0],
-"struct_module_1_1_rf_switch_mode__t.html":[3,0,45,0],
-"struct_module_1_1_rf_switch_mode__t.html#a2442217bfabfb124a3f46bb128aa7462":[3,0,45,0,0]
+"struct_module_1_1_rf_switch_mode__t.html":[3,0,45,0]
 };

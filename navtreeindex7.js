@@ -1,5 +1,6 @@
 var NAVTREEINDEX7 =
 {
+"struct_module_1_1_rf_switch_mode__t.html#a2442217bfabfb124a3f46bb128aa7462":[3,0,45,0,0],
 "struct_module_1_1_rf_switch_mode__t.html#a694fecae172f868d8ca400319920ed66":[3,0,45,0,1],
 "struct_module_1_1_s_p_i_config__t.html":[3,0,45,1],
 "struct_module_1_1_s_p_i_config__t.html#a1a088c02ed02361746621ffbc2526681":[3,0,45,1,5],

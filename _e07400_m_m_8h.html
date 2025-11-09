@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>RadioLib: src/modules/E07400MM/E07400MM.cpp File Reference</title>
+<title>RadioLib: src/modules/E07400MM/E07400MM.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,7 +64,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('_e07400_m_m_8cpp.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('_e07400_m_m_8h.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -90,23 +90,68 @@ $(document).ready(function(){initNavTree('_e07400_m_m_8cpp.html',''); initResiza
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">E07400MM.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">E07400MM.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>E07400MM (<a class="el" href="class_c_c1101.html" title="Control class for CC1101 module.">CC1101</a> clone) driver implementation tested with E07-400MM10S (<a href="https://www.cdebyte.com/products/E07-400MM10S">https://www.cdebyte.com/products/E07-400MM10S</a>)  
+<p>E07-400MM (<a class="el" href="class_c_c1101.html" title="Control class for CC1101 module.">CC1101</a> clone) driver for RadioLib.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="_e07400_m_m_8h_source.html">E07400MM.h</a>&quot;</code><br />
-</div><a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>E07400MM (<a class="el" href="class_c_c1101.html" title="Control class for CC1101 module.">CC1101</a> clone) driver implementation tested with E07-400MM10S (<a href="https://www.cdebyte.com/products/E07-400MM10S">https://www.cdebyte.com/products/E07-400MM10S</a>) </p>
+<div class="textblock"><code>#include &quot;../CC1101/CC1101.h&quot;</code><br />
+<code>#include &quot;../../TypeDef.h&quot;</code><br />
+</div>
+<p><a href="_e07400_m_m_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e07__400_m_m.html">E07_400MM</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">E07-400MM class extending RadioLib <a class="el" href="class_c_c1101.html" title="Control class for CC1101 module.">CC1101</a>.  <a href="class_e07__400_m_m.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>E07-400MM (<a class="el" href="class_c_c1101.html" title="Control class for CC1101 module.">CC1101</a> clone) driver for RadioLib. </p>
+<p>This class extends RadioLib's <a class="el" href="class_c_c1101.html" title="Control class for CC1101 module.">CC1101</a> class to handle quirks specific to the Chinese E07-400MM clone module used in the Vandal project.</p>
 <dl class="section author"><dt>Author</dt><dd>0x42en (<a href="#" onclick="location.href='mai'+'lto:'+'0x4'+'2e'+'n@g'+'ma'+'il.'+'co'+'m'; return false;">0x42e<span class="obfuscator">.nosp@m.</span>n@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>) </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2025-01-08 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2025-01-08</dd></dl>
+<p>CRITICAL E07-400MM QUIRKS HANDLED BY THIS CLASS:</p>
+<ol type="1">
+<li>STATUS REGISTERS (0x30-0x3D) REQUIRE BURST MODE<ul>
+<li>Must use SPIreadRegisterBurst(reg | 0x40, ...) not SPIreadRegister()</li>
+<li>Affects: RSSI, LQI, and other status registers</li>
+</ul>
+</li>
+<li>FIFO REGISTER (0x3F) REQUIRES BURST MODE<ul>
+<li>RadioLib's getPacketLength() uses SPIreadRegister() which fails</li>
+<li>Must read FIFO directly with BURST mode</li>
+<li>First byte in variable length mode = packet length</li>
+</ul>
+</li>
+<li>RSSI CACHING ISSUE<ul>
+<li>RadioLib getRSSI() caches values</li>
+<li>Scanning requires direct register read for real-time RSSI</li>
+</ul>
+</li>
+<li>TIMING REQUIREMENTS<ul>
+<li>AGC settling time: 2-3ms per frequency point</li>
+<li>FreeRTOS tick is 10ms - must use esp_rom_delay_us() for &lt;10ms delays</li>
+</ul>
+</li>
+</ol>
+<p>METHODS OVERRIDDEN:</p><ul>
+<li>getRSSI() : Direct register read with BURST mode (no cache)</li>
+<li>getPacketLength() : Direct FIFO access with BURST mode</li>
+<li>readData() : Complete FIFO read with BURST mode (data + RSSI + LQI)</li>
+</ul>
+<p>NEW METHODS:</p><ul>
+<li>scanRSSI() : Optimized spectrum scanning with microsecond precision </li>
+</ul>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ddb4d7e95cc2d6c8e1ade10a20d7247d.html">modules</a></li><li class="navelem"><a class="el" href="dir_ea2cffd9f82217efe63746658d3fd36b.html">E07400MM</a></li><li class="navelem"><a class="el" href="_e07400_m_m_8cpp.html">E07400MM.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ddb4d7e95cc2d6c8e1ade10a20d7247d.html">modules</a></li><li class="navelem"><a class="el" href="dir_ea2cffd9f82217efe63746658d3fd36b.html">E07400MM</a></li><li class="navelem"><a class="el" href="_e07400_m_m_8h.html">E07400MM.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
