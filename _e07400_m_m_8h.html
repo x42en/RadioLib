@@ -143,6 +143,10 @@ Classes</h2></td></tr>
 <li>getPacketLength() : Direct FIFO access with BURST mode</li>
 <li>readData() : Complete FIFO read with BURST mode (data + RSSI + LQI)</li>
 </ul>
+<p>METHODS SHADOWED (not virtual in <a class="el" href="class_c_c1101.html" title="Control class for CC1101 module.">CC1101</a>, can't use 'override'):</p><ul>
+<li>packetMode() : Atomic PKTCTRL0 write (not split like RadioLib)</li>
+<li>setOOK() : Force MDMCFG2 sync detection after modulation change</li>
+</ul>
 <p>NEW METHODS:</p><ul>
 <li>scanRSSI() : Optimized spectrum scanning with microsecond precision </li>
 </ul>

@@ -99,46 +99,54 @@ $(document).ready(function(){initNavTree('_e07400_m_m_8h_source.html',''); initR
 </div><!--header-->
 <div class="contents">
 <a href="_e07400_m_m_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#ifndef E07_400MM_H</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define E07_400MM_H</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &quot;../CC1101/CC1101.h&quot;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &quot;../../TypeDef.h&quot;</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#if defined(ESP_PLATFORM)</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &quot;esp_rom_sys.h&quot;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#elif defined(RADIOLIB_BUILD_ARDUINO)</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="foldopen" id="foldopen00057" data-start="{" data-end="};">
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="class_e07__400_m_m.html">   57</a></span><span class="keyword">class </span><a class="code hl_class" href="class_e07__400_m_m.html">E07_400MM</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_c_c1101.html">CC1101</a></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_class" href="class_e07__400_m_m.html">E07_400MM</a>(<a class="code hl_class" href="class_module.html">Module</a> *module);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="class_e07__400_m_m.html#ac6bcf25c3563acf901616028c7f148c4">getRSSI</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordtype">size_t</span> <a class="code hl_function" href="class_e07__400_m_m.html#a646aca8d01553e356c0e127c98bc6040">getPacketLength</a>(<span class="keywordtype">bool</span> update = <span class="keyword">true</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    int16_t <a class="code hl_function" href="class_e07__400_m_m.html#a98ea3037c9f5ee73dae8cd6b6f4cd5e5">readData</a>(uint8_t *data, <span class="keywordtype">size_t</span> len) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    int16_t <a class="code hl_function" href="class_e07__400_m_m.html#a26d97adc5d08ee1391b81fe0f18a8e68">scanRSSI</a>(<span class="keywordtype">float</span> *rssi_values, <span class="keywordtype">size_t</span> num_points,</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                     <span class="keywordtype">float</span> center_freq, <span class="keywordtype">float</span> step_khz,</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                     uint16_t dwell_time_us = 3000);</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordtype">float</span> convertRSSI(uint8_t rssi_raw);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>};</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#ifndef E07_400MM_H</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#define E07_400MM_H</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &quot;../CC1101/CC1101.h&quot;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &quot;../../TypeDef.h&quot;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#if defined(ESP_PLATFORM)</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &quot;esp_rom_sys.h&quot;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#elif defined(RADIOLIB_BUILD_ARDUINO)</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="foldopen" id="foldopen00061" data-start="{" data-end="};">
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="class_e07__400_m_m.html">   61</a></span><span class="keyword">class </span><a class="code hl_class" href="class_e07__400_m_m.html">E07_400MM</a> : <span class="keyword">public</span> <a class="code hl_class" href="class_c_c1101.html">CC1101</a></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>{</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_class" href="class_e07__400_m_m.html">E07_400MM</a>(<a class="code hl_class" href="class_module.html">Module</a> *module);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="class_e07__400_m_m.html#ac6bcf25c3563acf901616028c7f148c4">getRSSI</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordtype">size_t</span> <a class="code hl_function" href="class_e07__400_m_m.html#a646aca8d01553e356c0e127c98bc6040">getPacketLength</a>(<span class="keywordtype">bool</span> update = <span class="keyword">true</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    int16_t <a class="code hl_function" href="class_e07__400_m_m.html#a98ea3037c9f5ee73dae8cd6b6f4cd5e5">readData</a>(uint8_t *data, <span class="keywordtype">size_t</span> len) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    int16_t <a class="code hl_function" href="class_e07__400_m_m.html#a26d97adc5d08ee1391b81fe0f18a8e68">scanRSSI</a>(<span class="keywordtype">float</span> *rssi_values, <span class="keywordtype">size_t</span> num_points,</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                     <span class="keywordtype">float</span> center_freq, <span class="keywordtype">float</span> step_khz,</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                     uint16_t dwell_time_us = 3000);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    int16_t <a class="code hl_function" href="class_e07__400_m_m.html#a419081fa3225375b436af8055d0647bf">packetMode</a>();</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    int16_t <a class="code hl_function" href="class_e07__400_m_m.html#af0b69378b830a99520cfe1bf15156009">setOOK</a>(<span class="keywordtype">bool</span> enableOOK);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordtype">float</span> convertRSSI(uint8_t rssi_raw);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    int16_t restoreSyncMode();</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>};</div>
 </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#endif </span><span class="comment">// E07_400MM_H</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="preprocessor">#endif </span><span class="comment">// E07_400MM_H</span></div>
 <div class="ttc" id="aclass_c_c1101_html"><div class="ttname"><a href="class_c_c1101.html">CC1101</a></div><div class="ttdoc">Control class for CC1101 module.</div><div class="ttdef"><b>Definition</b> CC1101.h:530</div></div>
-<div class="ttc" id="aclass_e07__400_m_m_html"><div class="ttname"><a href="class_e07__400_m_m.html">E07_400MM</a></div><div class="ttdoc">E07-400MM class extending RadioLib CC1101.</div><div class="ttdef"><b>Definition</b> E07400MM.h:58</div></div>
+<div class="ttc" id="aclass_e07__400_m_m_html"><div class="ttname"><a href="class_e07__400_m_m.html">E07_400MM</a></div><div class="ttdoc">E07-400MM class extending RadioLib CC1101.</div><div class="ttdef"><b>Definition</b> E07400MM.h:62</div></div>
 <div class="ttc" id="aclass_e07__400_m_m_html_a26d97adc5d08ee1391b81fe0f18a8e68"><div class="ttname"><a href="class_e07__400_m_m.html#a26d97adc5d08ee1391b81fe0f18a8e68">E07_400MM::scanRSSI</a></div><div class="ttdeci">int16_t scanRSSI(float *rssi_values, size_t num_points, float center_freq, float step_khz, uint16_t dwell_time_us=3000)</div><div class="ttdoc">Perform optimized RSSI spectrum scan.</div><div class="ttdef"><b>Definition</b> E07400MM.cpp:111</div></div>
-<div class="ttc" id="aclass_e07__400_m_m_html_a646aca8d01553e356c0e127c98bc6040"><div class="ttname"><a href="class_e07__400_m_m.html#a646aca8d01553e356c0e127c98bc6040">E07_400MM::getPacketLength</a></div><div class="ttdeci">size_t getPacketLength(bool update=true) override</div><div class="ttdoc">Get packet length from FIFO.</div><div class="ttdef"><b>Definition</b> E07400MM.cpp:41</div></div>
-<div class="ttc" id="aclass_e07__400_m_m_html_a98ea3037c9f5ee73dae8cd6b6f4cd5e5"><div class="ttname"><a href="class_e07__400_m_m.html#a98ea3037c9f5ee73dae8cd6b6f4cd5e5">E07_400MM::readData</a></div><div class="ttdeci">int16_t readData(uint8_t *data, size_t len) override</div><div class="ttdoc">Read received packet data.</div><div class="ttdef"><b>Definition</b> E07400MM.cpp:63</div></div>
+<div class="ttc" id="aclass_e07__400_m_m_html_a419081fa3225375b436af8055d0647bf"><div class="ttname"><a href="class_e07__400_m_m.html#a419081fa3225375b436af8055d0647bf">E07_400MM::packetMode</a></div><div class="ttdeci">int16_t packetMode()</div><div class="ttdoc">Configure packet mode with atomic PKTCTRL0 write.</div><div class="ttdef"><b>Definition</b> E07400MM.cpp:183</div></div>
+<div class="ttc" id="aclass_e07__400_m_m_html_a646aca8d01553e356c0e127c98bc6040"><div class="ttname"><a href="class_e07__400_m_m.html#a646aca8d01553e356c0e127c98bc6040">E07_400MM::getPacketLength</a></div><div class="ttdeci">size_t getPacketLength(bool update=true) override</div><div class="ttdoc">Get packet length from FIFO.</div><div class="ttdef"><b>Definition</b> E07400MM.cpp:38</div></div>
+<div class="ttc" id="aclass_e07__400_m_m_html_a98ea3037c9f5ee73dae8cd6b6f4cd5e5"><div class="ttname"><a href="class_e07__400_m_m.html#a98ea3037c9f5ee73dae8cd6b6f4cd5e5">E07_400MM::readData</a></div><div class="ttdeci">int16_t readData(uint8_t *data, size_t len) override</div><div class="ttdoc">Read received packet data.</div><div class="ttdef"><b>Definition</b> E07400MM.cpp:65</div></div>
 <div class="ttc" id="aclass_e07__400_m_m_html_ac6bcf25c3563acf901616028c7f148c4"><div class="ttname"><a href="class_e07__400_m_m.html#ac6bcf25c3563acf901616028c7f148c4">E07_400MM::getRSSI</a></div><div class="ttdeci">float getRSSI() override</div><div class="ttdoc">Get RSSI of last received packet or current RSSI level.</div><div class="ttdef"><b>Definition</b> E07400MM.cpp:29</div></div>
+<div class="ttc" id="aclass_e07__400_m_m_html_af0b69378b830a99520cfe1bf15156009"><div class="ttname"><a href="class_e07__400_m_m.html#af0b69378b830a99520cfe1bf15156009">E07_400MM::setOOK</a></div><div class="ttdeci">int16_t setOOK(bool enableOOK)</div><div class="ttdoc">Set OOK/ASK modulation and restore sync word detection.</div><div class="ttdef"><b>Definition</b> E07400MM.cpp:247</div></div>
 <div class="ttc" id="aclass_module_html"><div class="ttname"><a href="class_module.html">Module</a></div><div class="ttdoc">Implements all common low-level methods to control the wireless module. Every module class contains o...</div><div class="ttdef"><b>Definition</b> Module.h:73</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
