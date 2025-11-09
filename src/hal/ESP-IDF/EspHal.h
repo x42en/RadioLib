@@ -5,6 +5,7 @@
 #ifndef ESP_HAL_SPIMASTER_H
 #define ESP_HAL_SPIMASTER_H
 
+#if defined(ESP_PLATFORM)
 #include "RadioLib.h"
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
@@ -369,5 +370,5 @@ private:
     bool deviceAdded;
     bool halInitialized;
 };
-
+#endif
 #endif // ESP_HAL_SPIMASTER_H
