@@ -32,6 +32,10 @@
  * - getPacketLength() : Direct FIFO access with BURST mode
  * - readData()        : Complete FIFO read with BURST mode (data + RSSI + LQI)
  *
+ * METHODS SHADOWED (not virtual in CC1101, can't use 'override'):
+ * - packetMode()      : Atomic PKTCTRL0 write (not split like RadioLib)
+ * - setOOK()          : Force MDMCFG2 sync detection after modulation change
+ *
  * NEW METHODS:
  * - scanRSSI()        : Optimized spectrum scanning with microsecond precision
  */
@@ -113,6 +117,33 @@ public:
                      float center_freq, float step_khz,
                      uint16_t dwell_time_us = 3000);
 
+    /**
+     * @brief Configure packet mode with atomic PKTCTRL0 write
+     *
+     * Overrides RadioLib's packetMode() which writes PKTCTRL0 in 2 separate SPI calls.
+     * E07-400MM clones require atomic register writes.
+     *
+     * NOTE: Not marked 'override' because CC1101::packetMode() is not virtual.
+     * This method SHADOWS (not overrides) the parent method.
+     *
+     * @return Status code (RADIOLIB_ERR_NONE on success)
+     */
+    int16_t packetMode();
+
+    /**
+     * @brief Set OOK/ASK modulation and restore sync word detection
+     *
+     * Overrides RadioLib's setOOK() to force MDMCFG2 sync mode restoration.
+     * This fixes the scanner→sniffer bug where sync detection gets disabled.
+     *
+     * NOTE: Not marked 'override' because CC1101::setOOK() is not virtual.
+     * This method SHADOWS (not overrides) the parent method.
+     *
+     * @param enableOOK Enable OOK (true) or disable (false)
+     * @return Status code (RADIOLIB_ERR_NONE on success)
+     */
+    int16_t setOOK(bool enableOOK);
+
 private:
     /**
      * @brief Convert raw RSSI register value to dBm
@@ -124,6 +155,18 @@ private:
      * @return RSSI in dBm
      */
     float convertRSSI(uint8_t rssi_raw);
+
+    /**
+     * @brief Restore sync word detection in MDMCFG2
+     *
+     * After scanner mode (which disables sync), or after setOOK()/setFSK()
+     * (which don't touch MDMCFG2[2:0]), we must restore sync word detection.
+     *
+     * Sets MDMCFG2[2:0] = 0b010 (16/16 sync bits detected, recommended mode)
+     *
+     * @return Status code (RADIOLIB_ERR_NONE on success)
+     */
+    int16_t restoreSyncMode();
 };
 
 #endif // E07_400MM_H
