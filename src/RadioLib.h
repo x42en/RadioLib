@@ -48,7 +48,7 @@
 #include "Hal.h"
 #if defined(RADIOLIB_BUILD_ARDUINO)
 #include "hal/Arduino/ArduinoHal.h"
-#elif defined(RADIOLIB_BUILD_ESP_IDF)
+#elif defined(RADIOLIB_BUILD_GENERIC) && defined(ESP_PLATFORM)
 #include "hal/ESP-IDF/EspHal.h"
 #endif
 
@@ -75,6 +75,7 @@
 #endif
 
 #include "modules/CC1101/CC1101.h"
+#include "modules/E07400MM/E07400MM.h"
 #include "modules/LLCC68/LLCC68.h"
 #include "modules/LR11x0/LR1110.h"
 #include "modules/LR11x0/LR1120.h"
