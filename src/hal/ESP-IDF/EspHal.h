@@ -17,8 +17,12 @@
 #include "esp_rom_sys.h" // For esp_rom_delay_us
 
 // Arduino-style macros for RadioLib compatibility
+#ifndef LOW
 #define LOW (0x0)
+#endif
+#ifndef HIGH
 #define HIGH (0x1)
+#endif
 #define INPUT (GPIO_MODE_INPUT)
 #define OUTPUT (GPIO_MODE_OUTPUT)
 #define RISING (GPIO_INTR_POSEDGE)
@@ -113,7 +117,16 @@ public:
         }
 
         gpio_set_intr_type((gpio_num_t)interruptNum, (gpio_int_type_t)mode);
-        gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
+
+        // Install ISR service only if not already installed (global service)
+        esp_err_t ret = gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
+        if (ret != ESP_OK && ret != ESP_ERR_INVALID_STATE)
+        {
+            // ESP_ERR_INVALID_STATE means already installed (OK)
+            // Any other error is a real problem
+            ESP_LOGE("EspHal", "Failed to install GPIO ISR service: %s", esp_err_to_name(ret));
+        }
+
         gpio_isr_handler_add((gpio_num_t)interruptNum, (gpio_isr_t)interruptCb, nullptr);
     }
 
@@ -323,12 +336,12 @@ public:
      * @param csPin Chip select pin
      * @param clockHz SPI clock frequency in Hz
      */
-    bool addSpiDevice(int8_t csPin, uint32_t clockHz = 500000)
+    esp_err_t addSpiDevice(int8_t csPin, uint32_t clockHz = 500000)
     {
         if (csPin == RADIOLIB_NC)
         {
             ESP_LOGE("EspHal", "Invalid CS pin");
-            return false;
+            return ESP_FAIL;
         }
 
         spi_device_interface_config_t dev_config = {};
@@ -352,12 +365,33 @@ public:
         if (ret != ESP_OK)
         {
             ESP_LOGE("EspHal", "Failed to add SPI device: %s", esp_err_to_name(ret));
-            return false;
+            return ret;
         }
 
         deviceAdded = true;
         ESP_LOGD("EspHal", "SPI device added (CS=%d, clock=%u Hz)", csPin, clockHz);
-        return true;
+        return ESP_OK;
+    }
+
+    esp_err_t removeSpiDevice()
+    {
+        if (!deviceAdded || spiDevice == nullptr)
+        {
+            ESP_LOGW("EspHal", "No SPI device to remove");
+            return ESP_OK;
+        }
+
+        esp_err_t ret = spi_bus_remove_device(spiDevice);
+        if (ret != ESP_OK)
+        {
+            ESP_LOGE("EspHal", "Failed to remove SPI device: %s", esp_err_to_name(ret));
+            return ret;
+        }
+
+        spiDevice = nullptr;
+        deviceAdded = false;
+        ESP_LOGD("EspHal", "SPI device removed");
+        return ESP_OK;
     }
 
 private:
