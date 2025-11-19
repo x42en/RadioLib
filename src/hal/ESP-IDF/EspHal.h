@@ -43,7 +43,7 @@ public:
      * @param mosi SPI MOSI pin
      * @param host SPI host to use (SPI2_HOST or SPI3_HOST)
      */
-    EspHal(int8_t sck, int8_t miso, int8_t mosi, spi_host_device_t host = SPI3_HOST)
+    EspHal(int8_t sck, int8_t miso, int8_t mosi, spi_host_device_t host = SPI2_HOST)
         : RadioLibHal(INPUT, OUTPUT, LOW, HIGH, RISING, FALLING),
           spiSCK(sck), spiMISO(miso), spiMOSI(mosi), spiHost(host),
           spiDevice(nullptr), busInitialized(false), deviceAdded(false), halInitialized(false)
