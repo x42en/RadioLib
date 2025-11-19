@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('_esp_hal_8h_source.html',''); initResi
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">class </span>EspHal : <span class="keyword">public</span> <a class="code hl_class" href="class_radio_lib_hal.html">RadioLibHal</a></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>{</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    EspHal(int8_t sck, int8_t miso, int8_t mosi, spi_host_device_t host = SPI3_HOST)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    EspHal(int8_t sck, int8_t miso, int8_t mosi, spi_host_device_t host = SPI2_HOST)</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        : <a class="code hl_class" href="class_radio_lib_hal.html">RadioLibHal</a>(INPUT, OUTPUT, LOW, HIGH, RISING, FALLING),</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>          spiSCK(sck), spiMISO(miso), spiMOSI(mosi), spiHost(host),</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>          spiDevice(nullptr), busInitialized(false), deviceAdded(false), halInitialized(false)</div>
