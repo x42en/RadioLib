@@ -134,7 +134,7 @@ Classes</h2></td></tr>
 </li>
 <li>TIMING REQUIREMENTS<ul>
 <li>AGC settling time: 2-3ms per frequency point</li>
-<li>FreeRTOS tick is 10ms - must use esp_rom_delay_us() for &lt;10ms delays</li>
+<li>Sub-millisecond delays are issued through the RadioLib HAL (hal-&gt;delayMicroseconds); the active HAL is responsible for providing busy-wait accuracy below the platform scheduler tick</li>
 </ul>
 </li>
 </ol>

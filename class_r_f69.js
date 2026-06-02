@@ -1,6 +1,7 @@
 var class_r_f69 =
 [
     [ "RF69", "class_r_f69.html#afbc84d4f91502bcbe12ddda2fde51448", null ],
+    [ "begin", "class_r_f69.html#a31d9accf0c1cd83f7c54e4e03a70e4c3", null ],
     [ "begin", "class_r_f69.html#a637ea5386066f5608bcbb4266e5c1bd6", null ],
     [ "clearDio0Action", "class_r_f69.html#a9721d2a3ed9fa8dd878575d71d5a4942", null ],
     [ "clearDio1Action", "class_r_f69.html#ade1f9a7a603d712c480ed5e9a8d1bf51", null ],
@@ -57,7 +58,8 @@ var class_r_f69 =
     [ "setOokFixedThreshold", "class_r_f69.html#a2f5852cf0757e38b56b6208760d9a459", null ],
     [ "setOokPeakThresholdDecrement", "class_r_f69.html#a434420f2def6c383608223105469fda1", null ],
     [ "setOokThresholdType", "class_r_f69.html#a219a046c10ddcc0a787ad19346ecad6a", null ],
-    [ "setOutputPower", "class_r_f69.html#a721094611fa375e73bd0332ab2d7d113", null ],
+    [ "setOutputPower", "class_r_f69.html#a99983925dc915bcb0ef77972147ecf30", null ],
+    [ "setOutputPower", "class_r_f69.html#a0be84b13d46cb345be25c75d87bf7804", null ],
     [ "setPacketReceivedAction", "class_r_f69.html#a74962c069e08890ac9566d48634c778e", null ],
     [ "setPacketSentAction", "class_r_f69.html#a97603856caada65676ff4b11630c7f72", null ],
     [ "setPreambleLength", "class_r_f69.html#a529dd8d3fad97c10b9319391eb2a7ad1", null ],
@@ -67,6 +69,7 @@ var class_r_f69 =
     [ "setRSSIThreshold", "class_r_f69.html#afcb723ae58d6519e5b95d017d2beb78a", null ],
     [ "setRxBandwidth", "class_r_f69.html#a735d8f22095a7e69471d73ca021b9d1a", null ],
     [ "setSyncWord", "class_r_f69.html#a2954563d74588c2fd8d590aa6e102e4d", null ],
+    [ "setSyncWord", "class_r_f69.html#a6c71cdc1238e1368274670758431a977", null ],
     [ "sleep", "class_r_f69.html#adec9debf69f5ee846a5b6e34831ade3c", null ],
     [ "standby", "class_r_f69.html#a20242499eb926ff7b7da6e3f74a9ece1", null ],
     [ "standby", "class_r_f69.html#a6e3002ab0c58e2087a7d101eda7afa82", null ],
