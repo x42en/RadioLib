@@ -3,9 +3,9 @@
  * @brief E07-400MM (CC1101 clone) driver for RadioLib
  *
  * This class extends RadioLib's CC1101 class to handle quirks specific to
- * the Chinese E07-400MM clone module used in the Vandal project.
+ * the Chinese E07-400MM clone module https://www.cdebyte.com/pdf-down.aspx?id=1824.
  *
- * @author 0x42en (0x42en@gmail.com)
+ * @author 0x42en
  * @date 2025-01-08
  *
  * CRITICAL E07-400MM QUIRKS HANDLED BY THIS CLASS:
