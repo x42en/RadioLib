@@ -117,18 +117,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aee915093d1eda0bbbedac6a4d9cd0aad" id="r_aee915093d1eda0bbbedac6a4d9cd0aad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e07__400_m_m.html#aee915093d1eda0bbbedac6a4d9cd0aad">E07_400MM</a> (<a class="el" href="class_module.html">Module</a> *module)</td></tr>
 <tr class="memdesc:aee915093d1eda0bbbedac6a4d9cd0aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <br /></td></tr>
 <tr class="separator:aee915093d1eda0bbbedac6a4d9cd0aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6bcf25c3563acf901616028c7f148c4" id="r_ac6bcf25c3563acf901616028c7f148c4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e07__400_m_m.html#ac6bcf25c3563acf901616028c7f148c4">getRSSI</a> () override</td></tr>
-<tr class="memdesc:ac6bcf25c3563acf901616028c7f148c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get RSSI of last received packet or current RSSI level.  <br /></td></tr>
-<tr class="separator:ac6bcf25c3563acf901616028c7f148c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a646aca8d01553e356c0e127c98bc6040" id="r_a646aca8d01553e356c0e127c98bc6040"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e07__400_m_m.html#a646aca8d01553e356c0e127c98bc6040">getPacketLength</a> (bool update=true) override</td></tr>
 <tr class="memdesc:a646aca8d01553e356c0e127c98bc6040"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get packet length from FIFO.  <br /></td></tr>
 <tr class="separator:a646aca8d01553e356c0e127c98bc6040"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98ea3037c9f5ee73dae8cd6b6f4cd5e5" id="r_a98ea3037c9f5ee73dae8cd6b6f4cd5e5"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e07__400_m_m.html#a98ea3037c9f5ee73dae8cd6b6f4cd5e5">readData</a> (uint8_t *data, size_t len) override</td></tr>
 <tr class="memdesc:a98ea3037c9f5ee73dae8cd6b6f4cd5e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read received packet data.  <br /></td></tr>
 <tr class="separator:a98ea3037c9f5ee73dae8cd6b6f4cd5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26d97adc5d08ee1391b81fe0f18a8e68" id="r_a26d97adc5d08ee1391b81fe0f18a8e68"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e07__400_m_m.html#a26d97adc5d08ee1391b81fe0f18a8e68">scanRSSI</a> (float *rssi_values, size_t num_points, float center_freq, float step_khz, uint16_t dwell_time_us=3000)</td></tr>
-<tr class="memdesc:a26d97adc5d08ee1391b81fe0f18a8e68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform optimized RSSI spectrum scan.  <br /></td></tr>
-<tr class="separator:a26d97adc5d08ee1391b81fe0f18a8e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a419081fa3225375b436af8055d0647bf" id="r_a419081fa3225375b436af8055d0647bf"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e07__400_m_m.html#a419081fa3225375b436af8055d0647bf">packetMode</a> ()</td></tr>
 <tr class="memdesc:a419081fa3225375b436af8055d0647bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configure packet mode with atomic PKTCTRL0 write.  <br /></td></tr>
 <tr class="separator:a419081fa3225375b436af8055d0647bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -281,6 +275,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clearGdo2Action</b> (
 <tr class="memitem:afa64d1ad4789d3146b38d14437234756 inherit pub_methods_class_c_c1101" id="r_afa64d1ad4789d3146b38d14437234756"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#afa64d1ad4789d3146b38d14437234756">setOOK</a> (bool enableOOK)</td></tr>
 <tr class="memdesc:afa64d1ad4789d3146b38d14437234756 inherit pub_methods_class_c_c1101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enables/disables OOK modulation instead of FSK.  <br /></td></tr>
 <tr class="separator:afa64d1ad4789d3146b38d14437234756 inherit pub_methods_class_c_c1101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab80835be83e5a43010afe4e8185114eb inherit pub_methods_class_c_c1101" id="r_ab80835be83e5a43010afe4e8185114eb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#ab80835be83e5a43010afe4e8185114eb">getRSSI</a> () override</td></tr>
+<tr class="memdesc:ab80835be83e5a43010afe4e8185114eb inherit pub_methods_class_c_c1101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets RSSI (Received Signal Strength Indicator) of the last received packet. In direct or asynchronous direct mode, returns the current RSSI level.  <br /></td></tr>
+<tr class="separator:ab80835be83e5a43010afe4e8185114eb inherit pub_methods_class_c_c1101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91864f21b2b1dc52864567b935bbdb97 inherit pub_methods_class_c_c1101" id="r_a91864f21b2b1dc52864567b935bbdb97"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a91864f21b2b1dc52864567b935bbdb97">getRSSILive</a> ()</td></tr>
+<tr class="memdesc:a91864f21b2b1dc52864567b935bbdb97 inherit pub_methods_class_c_c1101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current (live) RSSI of the channel, read directly from the transceiver status register instead of the last received packet. Useful for spectrum scanning and channel activity detection.  <br /></td></tr>
+<tr class="separator:a91864f21b2b1dc52864567b935bbdb97 inherit pub_methods_class_c_c1101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65cffc3c904a4b4d829f6c7fe355daf2 inherit pub_methods_class_c_c1101" id="r_a65cffc3c904a4b4d829f6c7fe355daf2"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a65cffc3c904a4b4d829f6c7fe355daf2">scanRSSI</a> (float *rssiValues, size_t numPoints, float centerFreq, float stepKHz, uint16_t dwellTimeUs=3000)</td></tr>
+<tr class="memdesc:a65cffc3c904a4b4d829f6c7fe355daf2 inherit pub_methods_class_c_c1101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs an RSSI sweep across a range of frequencies centered on a given frequency. For each point the radio is tuned, RX is entered, the AGC is allowed to settle for the dwell time and the live RSSI is sampled.  <br /></td></tr>
+<tr class="separator:a65cffc3c904a4b4d829f6c7fe355daf2 inherit pub_methods_class_c_c1101"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59ca9e8956e308159949638bf327e5fb inherit pub_methods_class_c_c1101" id="r_a59ca9e8956e308159949638bf327e5fb"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a59ca9e8956e308159949638bf327e5fb">getLQI</a> () const</td></tr>
 <tr class="memdesc:a59ca9e8956e308159949638bf327e5fb inherit pub_methods_class_c_c1101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets LQI (Link Quality Indicator) of the last received packet.  <br /></td></tr>
 <tr class="separator:a59ca9e8956e308159949638bf327e5fb inherit pub_methods_class_c_c1101"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -548,37 +551,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>resetOnStartup</b> = 
 
 </div>
 </div>
-<a id="ac6bcf25c3563acf901616028c7f148c4" name="ac6bcf25c3563acf901616028c7f148c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6bcf25c3563acf901616028c7f148c4">&#9670;&#160;</a></span>getRSSI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float E07_400MM::getRSSI </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Get RSSI of last received packet or current RSSI level. </p>
-<p>Overrides RadioLib's <a class="el" href="class_e07__400_m_m.html#ac6bcf25c3563acf901616028c7f148c4" title="Get RSSI of last received packet or current RSSI level.">getRSSI()</a> to use direct register access with BURST mode. This is critical for scanning as RadioLib caches RSSI values.</p>
-<dl class="section return"><dt>Returns</dt><dd>RSSI in dBm </dd></dl>
-
-<p>Reimplemented from <a class="el" href="class_c_c1101.html#ab80835be83e5a43010afe4e8185114eb">CC1101</a>.</p>
-
-</div>
-</div>
 <a id="a419081fa3225375b436af8055d0647bf" name="a419081fa3225375b436af8055d0647bf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a419081fa3225375b436af8055d0647bf">&#9670;&#160;</a></span>packetMode()</h2>
 
@@ -650,66 +622,6 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>resetOnStartup</b> = 
 
 </div>
 </div>
-<a id="a26d97adc5d08ee1391b81fe0f18a8e68" name="a26d97adc5d08ee1391b81fe0f18a8e68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26d97adc5d08ee1391b81fe0f18a8e68">&#9670;&#160;</a></span>scanRSSI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int16_t E07_400MM::scanRSSI </td>
-          <td>(</td>
-          <td class="paramtype">float *&#160;</td>
-          <td class="paramname"><em>rssi_values</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>num_points</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>center_freq</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>step_khz</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint16_t&#160;</td>
-          <td class="paramname"><em>dwell_time_us</em> = <code>3000</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Perform optimized RSSI spectrum scan. </p>
-<p>New method specific to E07-400MM for high-performance spectrum scanning. Uses direct register access with microsecond-precision delays.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rssi_values</td><td>Array to store RSSI values (must be pre-allocated) </td></tr>
-    <tr><td class="paramname">num_points</td><td>Number of frequency points to scan </td></tr>
-    <tr><td class="paramname">center_freq</td><td>Center frequency in MHz </td></tr>
-    <tr><td class="paramname">step_khz</td><td>Frequency step in kHz </td></tr>
-    <tr><td class="paramname">dwell_time_us</td><td>Dwell time per frequency in microseconds (default: 3000µs = 3ms) </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Status code (RADIOLIB_ERR_NONE on success) </dd></dl>
-
-</div>
-</div>
 <a id="af0b69378b830a99520cfe1bf15156009" name="af0b69378b830a99520cfe1bf15156009"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af0b69378b830a99520cfe1bf15156009">&#9670;&#160;</a></span>setOOK()</h2>
 
@@ -741,7 +653,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>resetOnStartup</b> = 
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/modules/E07400MM/<a class="el" href="_e07400_m_m_8h_source.html">E07400MM.h</a></li>
-<li>src/modules/E07400MM/<a class="el" href="_e07400_m_m_8cpp.html">E07400MM.cpp</a></li>
+<li>src/modules/E07400MM/<b>E07400MM.cpp</b></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

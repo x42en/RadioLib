@@ -265,6 +265,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clearGdo2Action</b> (
 <tr class="memitem:ab80835be83e5a43010afe4e8185114eb" id="r_ab80835be83e5a43010afe4e8185114eb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#ab80835be83e5a43010afe4e8185114eb">getRSSI</a> () override</td></tr>
 <tr class="memdesc:ab80835be83e5a43010afe4e8185114eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets RSSI (Received Signal Strength Indicator) of the last received packet. In direct or asynchronous direct mode, returns the current RSSI level.  <br /></td></tr>
 <tr class="separator:ab80835be83e5a43010afe4e8185114eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91864f21b2b1dc52864567b935bbdb97" id="r_a91864f21b2b1dc52864567b935bbdb97"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a91864f21b2b1dc52864567b935bbdb97">getRSSILive</a> ()</td></tr>
+<tr class="memdesc:a91864f21b2b1dc52864567b935bbdb97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current (live) RSSI of the channel, read directly from the transceiver status register instead of the last received packet. Useful for spectrum scanning and channel activity detection.  <br /></td></tr>
+<tr class="separator:a91864f21b2b1dc52864567b935bbdb97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65cffc3c904a4b4d829f6c7fe355daf2" id="r_a65cffc3c904a4b4d829f6c7fe355daf2"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a65cffc3c904a4b4d829f6c7fe355daf2">scanRSSI</a> (float *rssiValues, size_t numPoints, float centerFreq, float stepKHz, uint16_t dwellTimeUs=3000)</td></tr>
+<tr class="memdesc:a65cffc3c904a4b4d829f6c7fe355daf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs an RSSI sweep across a range of frequencies centered on a given frequency. For each point the radio is tuned, RX is entered, the AGC is allowed to settle for the dwell time and the live RSSI is sampled.  <br /></td></tr>
+<tr class="separator:a65cffc3c904a4b4d829f6c7fe355daf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59ca9e8956e308159949638bf327e5fb" id="r_a59ca9e8956e308159949638bf327e5fb"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a59ca9e8956e308159949638bf327e5fb">getLQI</a> () const</td></tr>
 <tr class="memdesc:a59ca9e8956e308159949638bf327e5fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets LQI (Link Quality Indicator) of the last received packet.  <br /></td></tr>
 <tr class="separator:a59ca9e8956e308159949638bf327e5fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1184,7 +1190,25 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>resetOnStartup</b> = 
 
 <p>Reimplemented from <a class="el" href="class_physical_layer.html#aabc94ab27a9ee6daaafa9b47dde5f75b">PhysicalLayer</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_e07__400_m_m.html#ac6bcf25c3563acf901616028c7f148c4">E07_400MM</a>.</p>
+</div>
+</div>
+<a id="a91864f21b2b1dc52864567b935bbdb97" name="a91864f21b2b1dc52864567b935bbdb97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91864f21b2b1dc52864567b935bbdb97">&#9670;&#160;</a></span>getRSSILive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float CC1101::getRSSILive </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the current (live) RSSI of the channel, read directly from the transceiver status register instead of the last received packet. Useful for spectrum scanning and channel activity detection. </p>
+<dl class="section return"><dt>Returns</dt><dd>Current channel RSSI in dBm. </dd></dl>
 
 </div>
 </div>
@@ -1510,6 +1534,65 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>resetOnStartup</b> = 
 </div><div class="memdoc">
 
 <p>Starts asynchronous direct mode reception. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__status__codes.html">Status Codes</a> </dd></dl>
+
+</div>
+</div>
+<a id="a65cffc3c904a4b4d829f6c7fe355daf2" name="a65cffc3c904a4b4d829f6c7fe355daf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65cffc3c904a4b4d829f6c7fe355daf2">&#9670;&#160;</a></span>scanRSSI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t CC1101::scanRSSI </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>rssiValues</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>numPoints</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>centerFreq</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>stepKHz</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>dwellTimeUs</em> = <code>3000</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs an RSSI sweep across a range of frequencies centered on a given frequency. For each point the radio is tuned, RX is entered, the AGC is allowed to settle for the dwell time and the live RSSI is sampled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rssiValues</td><td>Output array receiving numPoints RSSI samples in dBm. Points that could not be tuned are set to -999.0. </td></tr>
+    <tr><td class="paramname">numPoints</td><td>Number of frequency points to sample. Must be non-zero. </td></tr>
+    <tr><td class="paramname">centerFreq</td><td>Center frequency of the sweep in MHz. </td></tr>
+    <tr><td class="paramname">stepKHz</td><td>Frequency step between points in kHz. </td></tr>
+    <tr><td class="paramname">dwellTimeUs</td><td>AGC settling time per point in microseconds (clamped to 500-50000). </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="group__status__codes.html">Status Codes</a> </dd></dl>
 
 </div>

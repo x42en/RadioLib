@@ -98,8 +98,9 @@ $(document).ready(function(){initNavTree('_e07400_m_m_8h.html',''); initResizabl
 
 <p>E07-400MM (<a class="el" href="class_c_c1101.html" title="Control class for CC1101 module.">CC1101</a> clone) driver for RadioLib.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;../CC1101/CC1101.h&quot;</code><br />
-<code>#include &quot;../../TypeDef.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;../../TypeDef.h&quot;</code><br />
+<code>#include &quot;../../Module.h&quot;</code><br />
+<code>#include &quot;../CC1101/CC1101.h&quot;</code><br />
 </div>
 <p><a href="_e07400_m_m_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -139,7 +140,7 @@ Classes</h2></td></tr>
 </li>
 </ol>
 <p>METHODS OVERRIDDEN:</p><ul>
-<li>getRSSI() : Direct register read with BURST mode (no cache)</li>
+<li>getRSSIRaw() : Live RSSI register read with BURST mode (used by <a class="el" href="class_c_c1101.html#a91864f21b2b1dc52864567b935bbdb97" title="Gets the current (live) RSSI of the channel, read directly from the transceiver status register inste...">CC1101::getRSSILive()</a> and <a class="el" href="class_c_c1101.html#a65cffc3c904a4b4d829f6c7fe355daf2" title="Performs an RSSI sweep across a range of frequencies centered on a given frequency....">CC1101::scanRSSI()</a>)</li>
 <li>getPacketLength() : Direct FIFO access with BURST mode</li>
 <li>readData() : Complete FIFO read with BURST mode (data + RSSI + LQI)</li>
 </ul>
@@ -147,9 +148,7 @@ Classes</h2></td></tr>
 <li>packetMode() : Atomic PKTCTRL0 write (not split like RadioLib)</li>
 <li>setOOK() : Force MDMCFG2 sync detection after modulation change</li>
 </ul>
-<p>NEW METHODS:</p><ul>
-<li>scanRSSI() : Optimized spectrum scanning with microsecond precision </li>
-</ul>
+<p>The generic spectrum sweep (scanRSSI) and the live RSSI accessor (getRSSILive) now live in the <a class="el" href="class_c_c1101.html" title="Control class for CC1101 module.">CC1101</a> base class; this clone only needs to override the low-level getRSSIRaw() read to satisfy the BURST quirk. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

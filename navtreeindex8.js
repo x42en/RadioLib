@@ -1,6 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"struct_lo_ra_w_a_n_band_num__t.html":[4,0,30],
 "struct_lo_ra_w_a_n_channel__t.html":[4,0,31],
 "struct_lo_ra_w_a_n_channel__t.html#a8332e2b32f822524c6a1ed04de3144bf":[4,0,31,0],
 "struct_lo_ra_w_a_n_channel__t.html#a96620451b311ba0126b9575aec81ec2f":[4,0,31,3],
