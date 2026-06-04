@@ -8,6 +8,7 @@
 
   \par Currently Supported Wireless Modules and Protocols
   - CC1101 FSK module
+  - E07-400MM FSK/OOK module (CC1101 clone)
   - LLCC68 LoRa/FSK module
   - LR11x0 LoRa/FSK/LR-FHSS module
   - nRF24 FSK module
@@ -78,6 +79,7 @@
 #endif
 
 #include "modules/CC1101/CC1101.h"
+#include "modules/E07400MM/E07400MM.h"
 #include "modules/LLCC68/LLCC68.h"
 #include "modules/LR11x0/LR1110.h"
 #include "modules/LR11x0/LR1120.h"
