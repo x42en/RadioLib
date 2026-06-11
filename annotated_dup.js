@@ -19,7 +19,6 @@ var annotated_dup =
     [ "ConfigLRFHSS_t", "struct_config_l_r_f_h_s_s__t.html", "struct_config_l_r_f_h_s_s__t" ],
     [ "ConfigOOK_t", "struct_config_o_o_k__t.html", "struct_config_o_o_k__t" ],
     [ "DataRate_t", "union_data_rate__t.html", "union_data_rate__t" ],
-    [ "E07_400MM", "class_e07__400_m_m.html", "class_e07__400_m_m" ],
     [ "ExternalRadio", "class_external_radio.html", "class_external_radio" ],
     [ "FSK4Client", "class_f_s_k4_client.html", "class_f_s_k4_client" ],
     [ "FSKPacketConfig_t", "struct_f_s_k_packet_config__t.html", "struct_f_s_k_packet_config__t" ],
