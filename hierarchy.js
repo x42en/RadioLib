@@ -62,7 +62,9 @@ var hierarchy =
     [ "PagerClient", "class_pager_client.html", null ],
     [ "paTableEntry_t", "structpa_table_entry__t.html", null ],
     [ "PhysicalLayer", "class_physical_layer.html", [
-      [ "CC1101", "class_c_c1101.html", null ],
+      [ "CC1101", "class_c_c1101.html", [
+        [ "E07_400MM", "class_e07__400_m_m.html", null ]
+      ] ],
       [ "ExternalRadio", "class_external_radio.html", null ],
       [ "LRxxxx", "class_l_rxxxx.html", [
         [ "LR11x0", "class_l_r11x0.html", [
