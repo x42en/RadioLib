@@ -316,6 +316,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>clearGdo2Action</b> (
 <tr class="memitem:a2a4c6e622dffd2788d8ac52d708b0705" id="r_a2a4c6e622dffd2788d8ac52d708b0705"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a2a4c6e622dffd2788d8ac52d708b0705">getChipVersion</a> ()</td></tr>
 <tr class="memdesc:a2a4c6e622dffd2788d8ac52d708b0705"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read version SPI register. Should return CC1101_VERSION_LEGACY (0x04) or CC1101_VERSION_CURRENT (0x14) if <a class="el" href="class_c_c1101.html" title="Control class for CC1101 module.">CC1101</a> is connected and working.  <br /></td></tr>
 <tr class="separator:a2a4c6e622dffd2788d8ac52d708b0705"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b431a97f414fb3dacd380a854360bdf" id="r_a5b431a97f414fb3dacd380a854360bdf"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a5b431a97f414fb3dacd380a854360bdf">getMARCSTATE</a> ()</td></tr>
+<tr class="memdesc:a5b431a97f414fb3dacd380a854360bdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read the main radio control state machine status (MARCSTATE register). Useful for diagnosing why a chip will not enter RX/TX (e.g. a PLL calibration that fails on marginal silicon leaves the chip in IDLE instead of RX = 0x0D).  <br /></td></tr>
+<tr class="separator:a5b431a97f414fb3dacd380a854360bdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24f4b059cc56238499c6117b88cd5505" id="r_a24f4b059cc56238499c6117b88cd5505"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_c1101.html#a24f4b059cc56238499c6117b88cd5505">setDirectAction</a> (void(*func)(void)) override</td></tr>
 <tr class="memdesc:a24f4b059cc56238499c6117b88cd5505"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set interrupt service routine function to call when data bit is receveid in direct mode.  <br /></td></tr>
 <tr class="separator:a24f4b059cc56238499c6117b88cd5505"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1100,6 +1103,26 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>resetOnStartup</b> = 
 
 <p>Gets LQI (Link Quality Indicator) of the last received packet. </p>
 <dl class="section return"><dt>Returns</dt><dd>Last packet LQI (lower is better). </dd></dl>
+
+</div>
+</div>
+<a id="a5b431a97f414fb3dacd380a854360bdf" name="a5b431a97f414fb3dacd380a854360bdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b431a97f414fb3dacd380a854360bdf">&#9670;&#160;</a></span>getMARCSTATE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t CC1101::getMARCSTATE </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read the main radio control state machine status (MARCSTATE register). Useful for diagnosing why a chip will not enter RX/TX (e.g. a PLL calibration that fails on marginal silicon leaves the chip in IDLE instead of RX = 0x0D). </p>
+<dl class="section return"><dt>Returns</dt><dd>MARCSTATE value masked to its 5 significant bits (0x00-0x1F). </dd></dl>
 
 </div>
 </div>

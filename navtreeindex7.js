@@ -1,5 +1,6 @@
 var NAVTREEINDEX7 =
 {
+"group__status__codes.html#gabc97efb9f410af5c0a9c1e5f882e41d8":[3,7,47],
 "group__status__codes.html#gabf529b0d150265c071c2255cb45f9e4f":[3,7,84],
 "group__status__codes.html#gac0673e69b893d8f23e339f218d376a52":[3,7,68],
 "group__status__codes.html#gac1902fa5b8d5c9469dd9261880ba2957":[3,7,88],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "struct_lo_ra_w_a_n_band__t.html#ad7ab17cc0b530fb99c3be39fd6411802":[4,0,29,1],
 "struct_lo_ra_w_a_n_band__t.html#ae3ed10eddc647a6f770121a1662a854f":[4,0,29,13],
 "struct_lo_ra_w_a_n_band__t.html#ae58f859a72e64aa4a6fe218ba7e21c10":[4,0,29,8],
-"struct_lo_ra_w_a_n_band__t.html#aef289b63007a6e085c7c66f71209d84c":[4,0,29,4],
-"struct_lo_ra_w_a_n_band__t.html#af8def1e0b5c3dc122557f71f5637a529":[4,0,29,12]
+"struct_lo_ra_w_a_n_band__t.html#aef289b63007a6e085c7c66f71209d84c":[4,0,29,4]
 };

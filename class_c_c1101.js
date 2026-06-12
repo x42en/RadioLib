@@ -21,6 +21,7 @@ var class_c_c1101 =
     [ "getChipVersion", "class_c_c1101.html#a2a4c6e622dffd2788d8ac52d708b0705", null ],
     [ "getFrequencyDeviation", "class_c_c1101.html#abe26fa310e973bf2b14750b9eae02124", null ],
     [ "getLQI", "class_c_c1101.html#a59ca9e8956e308159949638bf327e5fb", null ],
+    [ "getMARCSTATE", "class_c_c1101.html#a5b431a97f414fb3dacd380a854360bdf", null ],
     [ "getPacketLength", "class_c_c1101.html#a122281f6a915b77ee9dafc9926e731a0", null ],
     [ "getPromiscuousMode", "class_c_c1101.html#aeea78919ec14d940cda0f213e4fdced6", null ],
     [ "getRSSI", "class_c_c1101.html#ab80835be83e5a43010afe4e8185114eb", null ],
