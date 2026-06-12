@@ -899,15 +899,48 @@ int16_t CC1101::scanRSSI(float* rssiValues, size_t numPoints, float centerFreq, 
       continue;
     }
 
-    // setFrequency leaves the chip in IDLE; re-enter RX so the AGC tracks the channel
+    // setFrequency leaves the chip in IDLE; re-enter RX so the AGC tracks the
+    // channel. With MCSM0.FS_AUTOCAL = IDLE_TO_RXTX the SRX strobe first runs a
+    // full PLL calibration (~720-810us) before the receiver actually reaches
+    // the RX state. The RSSI status register only holds a meaningful value once
+    // the chip is in RX; reading it during calibration returns the reset value
+    // 0x00 (-74 dBm), which is exactly the flat reading observed on genuine
+    // silicon. We therefore strobe RX and then poll MARCSTATE until the chip
+    // reports RX before sampling, instead of blindly waiting a fixed delay.
     SPIsendCommand(RADIOLIB_CC1101_CMD_RX);
 
-    // Reserve part of the dwell for AGC settling: after retuning the receiver
-    // needs time to lock its gain before the RSSI reading is meaningful. The
-    // rest of the dwell is used for sampling.
+    // Wait for the chip to leave calibration and enter RX. Bound the wait so a
+    // stuck/absent chip can never hang the sweep; the budget covers worst-case
+    // autocal plus a margin. The MARCSTATE read also serves as the minimum
+    // settling time once RX is reached.
+    bool inRx = false;
+    const uint16_t marcTimeoutUs = 2000;  // > worst-case autocal (~810us)
+    uint16_t waitedUs = 0;
+    while(waitedUs < marcTimeoutUs) {
+      if((SPIgetRegValue(RADIOLIB_CC1101_REG_MARCSTATE, 4, 0) & 0x1F) == RADIOLIB_CC1101_MARC_STATE_RX) {
+        inRx = true;
+        break;
+      }
+      this->getMod()->hal->delayMicroseconds(50);
+      waitedUs += 50;
+    }
+
+    if(!inRx) {
+      // Receiver never reached RX (calibration failure or SPI issue). Mark the
+      // point as invalid rather than reporting a misleading noise-floor value.
+      rssiValues[i] = -999.0f;
+      currentFreq += stepMHz;
+      continue;
+    }
+
+    // RSSI valid time: after entering RX the analog front-end and the RSSI
+    // filter need a short additional settling window before the reading is
+    // accurate (datasheet: a few hundred microseconds, scaling with the
+    // channel-filter bandwidth). Reserve part of the remaining dwell for this
+    // and use the rest for sampling.
     uint16_t settleUs = dwellTimeUs / 4;
-    if(settleUs < 200) {
-      settleUs = 200;
+    if(settleUs < 250) {
+      settleUs = 250;
     }
     if(settleUs > dwellTimeUs) {
       settleUs = dwellTimeUs;
