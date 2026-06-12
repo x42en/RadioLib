@@ -902,11 +902,38 @@ int16_t CC1101::scanRSSI(float* rssiValues, size_t numPoints, float centerFreq, 
     // setFrequency leaves the chip in IDLE; re-enter RX so the AGC tracks the channel
     SPIsendCommand(RADIOLIB_CC1101_CMD_RX);
 
-    // allow the AGC to settle (routed through the HAL for sub-tick accuracy)
-    this->getMod()->hal->delayMicroseconds(dwellTimeUs);
+    // Reserve part of the dwell for AGC settling: after retuning the receiver
+    // needs time to lock its gain before the RSSI reading is meaningful. The
+    // rest of the dwell is used for sampling.
+    uint16_t settleUs = dwellTimeUs / 4;
+    if(settleUs < 200) {
+      settleUs = 200;
+    }
+    if(settleUs > dwellTimeUs) {
+      settleUs = dwellTimeUs;
+    }
+    this->getMod()->hal->delayMicroseconds(settleUs);
 
-    // sample the live RSSI (getRSSIRaw is overridden by clones requiring burst access)
-    rssiValues[i] = getRSSILive();
+    // Peak-hold sampling across the remaining dwell window. A single RSSI read
+    // can miss a short burst (e.g. an OOK remote keying on/off); keeping the
+    // strongest of several reads preserves transient carriers on the waterfall
+    // instead of averaging them into the noise floor.
+    float peak = getRSSILive();
+    uint16_t sampleWindowUs = dwellTimeUs - settleUs;
+    if(sampleWindowUs > 0) {
+      const uint8_t numSamples = 4;
+      uint16_t gapUs = sampleWindowUs / numSamples;
+      for(uint8_t s = 1; s < numSamples; s++) {
+        this->getMod()->hal->delayMicroseconds(gapUs);
+        float r = getRSSILive();
+        if(r > peak) {
+          peak = r;
+        }
+      }
+    }
+
+    // store the strongest sample seen during the dwell
+    rssiValues[i] = peak;
     currentFreq += stepMHz;
   }
 
