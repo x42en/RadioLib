@@ -856,6 +856,66 @@ float CC1101::getRSSI() {
   return(rssi);
 }
 
+uint8_t CC1101::getRSSIRaw() {
+  // SPIreadRegister automatically sets the status-register access bit for this range
+  return(SPIreadRegister(RADIOLIB_CC1101_REG_RSSI));
+}
+
+float CC1101::getRSSILive() {
+  uint8_t raw = getRSSIRaw();
+  if(raw >= 128) {
+    return(((float)raw - 256.0f)/2.0f - 74.0f);
+  }
+  return(((float)raw)/2.0f - 74.0f);
+}
+
+int16_t CC1101::scanRSSI(float* rssiValues, size_t numPoints, float centerFreq, float stepKHz, uint16_t dwellTimeUs) {
+  // validate parameters
+  if(rssiValues == NULL) {
+    return(RADIOLIB_ERR_NULL_POINTER);
+  }
+  if(numPoints == 0) {
+    return(RADIOLIB_ERR_INVALID_NUM_SAMPLES);
+  }
+
+  // clamp dwell time to a sane range
+  if(dwellTimeUs < 500) {
+    dwellTimeUs = 500;
+  } else if(dwellTimeUs > 50000) {
+    dwellTimeUs = 50000;
+  }
+
+  // the sweep is centered on centerFreq
+  float stepMHz = stepKHz / 1000.0f;
+  float currentFreq = centerFreq - ((numPoints / 2.0f) * stepMHz);
+
+  for(size_t i = 0; i < numPoints; i++) {
+    // tune to the next point
+    int16_t state = setFrequency(currentFreq);
+    if(state != RADIOLIB_ERR_NONE) {
+      // mark points that could not be tuned
+      rssiValues[i] = -999.0f;
+      currentFreq += stepMHz;
+      continue;
+    }
+
+    // setFrequency leaves the chip in IDLE; re-enter RX so the AGC tracks the channel
+    SPIsendCommand(RADIOLIB_CC1101_CMD_RX);
+
+    // allow the AGC to settle (routed through the HAL for sub-tick accuracy)
+    this->getMod()->hal->delayMicroseconds(dwellTimeUs);
+
+    // sample the live RSSI (getRSSIRaw is overridden by clones requiring burst access)
+    rssiValues[i] = getRSSILive();
+    currentFreq += stepMHz;
+  }
+
+  // return to standby once the sweep is done
+  standby();
+
+  return(RADIOLIB_ERR_NONE);
+}
+
 uint8_t CC1101::getLQI() const {
   return(this->rawLQI);
 }

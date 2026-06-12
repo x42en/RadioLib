@@ -927,6 +927,28 @@ class CC1101: public PhysicalLayer {
     float getRSSI() override;
 
     /*!
+      \brief Gets the current (live) RSSI of the channel, read directly from the
+      transceiver status register instead of the last received packet. Useful for
+      spectrum scanning and channel activity detection.
+      \returns Current channel RSSI in dBm.
+    */
+    float getRSSILive();
+
+    /*!
+      \brief Performs an RSSI sweep across a range of frequencies centered on a given
+      frequency. For each point the radio is tuned, RX is entered, the AGC is allowed
+      to settle for the dwell time and the live RSSI is sampled.
+      \param rssiValues Output array receiving numPoints RSSI samples in dBm. Points
+      that could not be tuned are set to -999.0.
+      \param numPoints Number of frequency points to sample. Must be non-zero.
+      \param centerFreq Center frequency of the sweep in MHz.
+      \param stepKHz Frequency step between points in kHz.
+      \param dwellTimeUs AGC settling time per point in microseconds (clamped to 500-50000).
+      \returns \ref status_codes
+    */
+    int16_t scanRSSI(float* rssiValues, size_t numPoints, float centerFreq, float stepKHz, uint16_t dwellTimeUs = 3000);
+
+    /*!
       \brief Gets LQI (Link Quality Indicator) of the last received packet.
       \returns Last packet LQI (lower is better).
     */
@@ -1063,22 +1085,35 @@ class CC1101: public PhysicalLayer {
     void SPIsendCommand(uint8_t cmd);
 
   #if !RADIOLIB_GODMODE
+    protected:
+  #endif
+    // state shared with derived modules (e.g. CC1101 clones)
+    uint8_t rawRSSI = 0;
+    uint8_t rawLQI = 0;
+    size_t packetLength = 0;
+    bool packetLengthQueried = false;
+    bool crcOn = true;
+
+    /*!
+      \brief Reads the raw RSSI value live from the chip status register. Derived
+      clones (e.g. E07-400MM) override this to use burst access. Used by
+      getRSSILive() and scanRSSI().
+      \returns Raw RSSI register value.
+    */
+    virtual uint8_t getRSSIRaw();
+
+  #if !RADIOLIB_GODMODE
     private:
   #endif
     Module* mod;
 
     float frequency = RADIOLIB_CC1101_DEFAULT_FREQ;
     float bitRate = RADIOLIB_CC1101_DEFAULT_BR;
-    uint8_t rawRSSI = 0;
-    uint8_t rawLQI = 0;
     uint8_t modulation = RADIOLIB_CC1101_MOD_FORMAT_2_FSK;
 
-    size_t packetLength = 0;
-    bool packetLengthQueried = false;
     uint8_t packetLengthConfig = RADIOLIB_CC1101_LENGTH_CONFIG_VARIABLE;
 
     bool promiscuous = false;
-    bool crcOn = true;
     bool directModeEnabled = false;
 
     int8_t power = RADIOLIB_CC1101_DEFAULT_POWER;
