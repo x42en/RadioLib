@@ -1047,6 +1047,14 @@ class CC1101: public PhysicalLayer {
     */
     int16_t getChipVersion();
 
+    /*!
+      \brief Read the main radio control state machine status (MARCSTATE register).
+      Useful for diagnosing why a chip will not enter RX/TX (e.g. a PLL calibration
+      that fails on marginal silicon leaves the chip in IDLE instead of RX = 0x0D).
+      \returns MARCSTATE value masked to its 5 significant bits (0x00-0x1F).
+    */
+    uint8_t getMARCSTATE();
+
     #if !RADIOLIB_EXCLUDE_DIRECT_RECEIVE
     /*!
       \brief Set interrupt service routine function to call when data bit is receveid in direct mode.

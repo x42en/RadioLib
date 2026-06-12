@@ -899,6 +899,25 @@ int16_t CC1101::scanRSSI(float* rssiValues, size_t numPoints, float centerFreq, 
       continue;
     }
 
+    // setFrequency strobes IDLE but does not wait for the state machine to get
+    // there. A subsequent SRX issued while the chip is still leaving the
+    // previous RX/calibration phase is silently dropped by the CC1101 (the
+    // strobe is only honoured from IDLE). On marginal silicon this leaves the
+    // chip stuck out of RX so every RSSI read returns the reset value -> a flat
+    // waterfall. Confirm IDLE before strobing RX so the SRX is always accepted.
+    {
+      const uint16_t idleTimeoutUs = 1000;
+      uint16_t idleWaitedUs = 0;
+      while(idleWaitedUs < idleTimeoutUs) {
+        uint8_t marc = SPIgetRegValue(RADIOLIB_CC1101_REG_MARCSTATE, 4, 0) & 0x1F;
+        if(marc == RADIOLIB_CC1101_MARC_STATE_IDLE) {
+          break;
+        }
+        this->getMod()->hal->delayMicroseconds(20);
+        idleWaitedUs += 20;
+      }
+    }
+
     // setFrequency leaves the chip in IDLE; re-enter RX so the AGC tracks the
     // channel. With MCSM0.FS_AUTOCAL = IDLE_TO_RXTX the SRX strobe first runs a
     // full PLL calibration (~720-810us) before the receiver actually reaches
@@ -1155,6 +1174,10 @@ uint8_t CC1101::randomByte() {
 
 int16_t CC1101::getChipVersion() {
   return(SPIgetRegValue(RADIOLIB_CC1101_REG_VERSION));
+}
+
+uint8_t CC1101::getMARCSTATE() {
+  return(SPIgetRegValue(RADIOLIB_CC1101_REG_MARCSTATE, 4, 0) & 0x1F);
 }
 
 #if !RADIOLIB_EXCLUDE_DIRECT_RECEIVE
