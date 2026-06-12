@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"class_hell_client.html#a68c4a74910756ad251e626a0b4c8c267":[4,0,24,3],
 "class_hell_client.html#a6e3ed5db1904f3f9602e20c3c0d0cbd0":[4,0,24,0],
 "class_hell_client.html#ae43025b9d55ee21a322bb5d7ee1065b0":[4,0,24,4],
 "class_hell_client.html#af557774ad72c24a94faff8c2be30f0d1":[4,0,24,5],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "class_l_r2021.html#aca2599a31c088a5e8c59317ae132d4d0":[4,0,57,61],
 "class_l_r2021.html#aca2d2d22e793e32c50efd5f01881979e":[4,0,57,68],
 "class_l_r2021.html#aca6e0999997105037967da5e571c0b29":[4,0,57,69],
-"class_l_r2021.html#acf55c538925942546916a1ee2be075d8":[4,0,57,32],
-"class_l_r2021.html#ad0cb9a1ec4f8ffb323f32a48a477b150":[4,0,57,83]
+"class_l_r2021.html#acf55c538925942546916a1ee2be075d8":[4,0,57,32]
 };

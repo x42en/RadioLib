@@ -15,6 +15,7 @@ var NAVTREEINDEX0 =
 "_cryptography_8h_source.html":[5,0,0,3,3],
 "_e07400_m_m_8h.html":[5,0,0,1,1,0],
 "_e07400_m_m_8h_source.html":[5,0,0,1,1,0],
+"_esp_hal_8h_source.html":[5,0,0,0,1,0],
 "_external_radio_8h_source.html":[5,0,0,2,5,0],
 "_f_s_k4_8h_source.html":[5,0,0,2,6,0],
 "_hal_8h_source.html":[5,0,0,6],
@@ -42,8 +43,8 @@ var NAVTREEINDEX0 =
 "_morse_8h_source.html":[5,0,0,2,9,0],
 "_pager_8h_source.html":[5,0,0,2,10,0],
 "_physical_layer_8h_source.html":[5,0,0,2,11,0],
-"_pi_hal_8h_source.html":[5,0,0,0,1,0],
-"_pico_hal_8h_source.html":[5,0,0,0,2,0],
+"_pi_hal_8h_source.html":[5,0,0,0,2,0],
+"_pico_hal_8h_source.html":[5,0,0,0,3,0],
 "_print_8h_source.html":[5,0,0,2,12,1],
 "_r_f69_8h_source.html":[5,0,0,1,6,0],
 "_r_f_m22_8h_source.html":[5,0,0,1,7,0],
@@ -76,7 +77,7 @@ var NAVTREEINDEX0 =
 "_si4431_8h_source.html":[5,0,0,1,8,1],
 "_si4432_8h_source.html":[5,0,0,1,8,2],
 "_si443x_8h_source.html":[5,0,0,1,8,3],
-"_stm32wl_hal_8h_source.html":[5,0,0,0,3,0],
+"_stm32wl_hal_8h_source.html":[5,0,0,0,4,0],
 "_type_def_8h_source.html":[5,0,0,9],
 "_utils_8h_source.html":[5,0,0,3,4],
 "annotated.html":[4,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "class_f_s_k4_client.html#a8b5765371ebbf68a21bc0bbfdf9f82ac":[4,0,21,5],
 "class_f_s_k4_client.html#aab85cb6519e5448dc332bf17bd60f90a":[4,0,21,4],
 "class_hell_client.html":[4,0,24],
-"class_hell_client.html#a225775fe87f9ed3c3a04142697641242":[4,0,24,2],
-"class_hell_client.html#a68c4a74910756ad251e626a0b4c8c267":[4,0,24,3]
+"class_hell_client.html#a225775fe87f9ed3c3a04142697641242":[4,0,24,2]
 };
